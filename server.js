@@ -24,13 +24,17 @@ var api = require('./lib/controllers/api');
 
 // Express Configuration
 app.configure(function(){
-	app.use(express.logger('dev'));
+    // app.use(express.json());
+    // app.use(express.urlencoded());
+    // app.use(express.cookieParser('VuczXHzVj2QZoznJP4NraKnb0sbhRkSJ01mUzXnQmA0zDNvu0m1SuwAqTVj4oWJE'));
+    // app.use(express.session());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
 });
 
 app.configure('development', function(){
+  app.use(express.logger('dev'));
   app.use(express.static(path.join(__dirname, '.tmp')));
   app.use(express.static(path.join(__dirname, 'app')));
   app.use(express.errorHandler());
@@ -42,7 +46,10 @@ app.configure('production', function(){
 });
 
 // Routes
-app.get('/api/awesomeThings', api.awesomeThings);
+
+app.get('/api/repopulate', api.repopulate);
+app.get('/api/awesomeThings', api.findAll);
+app.delete('/api/awesomeThings/:id', api.deleteById)
 
 // Start server
 var port = process.env.PORT || 3000;

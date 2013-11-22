@@ -14,10 +14,14 @@
 </div>
 
 <div class="row marketing">
-  <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
+  <div ng-repeat="thing in awesomeThings track by $index">
+      <h4>{{thing.name}} ( <a ng-click="deleteAwesomeThing(thing._id)">{{thing._id}}</a> )</h4>
       <p>{{thing.info}}</p>
   </div>
+</div>
+
+<div class="" ng-click="repopulate()">
+    repopulate
 </div>
 
 <div class="footer">
