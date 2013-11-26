@@ -1,5 +1,5 @@
 {
-  "name": "d-sio",
+  "name": "blimpIO",
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.2.0",
@@ -9,7 +9,8 @@
     "angular-sanitize": "~1.2.0",
     "angular-route": "~1.2.0",
     "AngularJS-Toaster": "*",
-    "angular-ui-router": "~0.2.0"
+    "angular-ui-router": "~0.2.0",
+    "angular-animate": "~1.2.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

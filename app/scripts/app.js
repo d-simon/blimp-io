@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('dSioApp', [
+angular.module('blimpIO', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'btford.socket-io'
+    'ngAnimate',
+    'btford.socket-io',
+    'toaster'
 ])
     .config(function ($routeProvider) {
         $routeProvider

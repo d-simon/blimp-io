@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dSioApp')
-    .controller('MainCtrl', function ($scope, $http, socket) {
+angular.module('blimpIO')
+    .controller('MainCtrl', function ($scope, $http, socket, toaster) {
         $scope.getAwesomeThings = function () {
             $http.get('/api/awesomeThings')
                 .success(function (awesomeThings) {
@@ -25,14 +25,14 @@ angular.module('dSioApp')
         $scope.repopulate = function () {
             $http.get('/api/repopulate')
                 .success(function () {
-                    //$scope.getAwesomeThings();
+                    $scope.getAwesomeThings();
                 });
         };
 
 
         socket.on('awesomeThings:updated', function (team) {
             $scope.getAwesomeThings();
-            
+            toaster.pop('success', "Update!", "awesomeThings update!");
         });
 
 
