@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dSioApp')
-    .controller('MainCtrl', function ($scope, $http) {
+    .controller('MainCtrl', function ($scope, $http, socket) {
         $scope.getAwesomeThings = function () {
             $http.get('/api/awesomeThings')
                 .success(function (awesomeThings) {
@@ -25,8 +25,15 @@ angular.module('dSioApp')
         $scope.repopulate = function () {
             $http.get('/api/repopulate')
                 .success(function () {
-                    $scope.getAwesomeThings();
+                    //$scope.getAwesomeThings();
                 });
         };
+
+
+        socket.on('awesomeThings:updated', function (team) {
+            $scope.getAwesomeThings();
+            
+        });
+
 
     });
