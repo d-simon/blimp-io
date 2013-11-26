@@ -28,7 +28,7 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 require('./lib/db/dummydata');
 
 // Controllers
-var api = require('./lib/controllers/api_module')(mongoose, async, io);
+var api = require('./lib/controllers/api')(mongoose, async, io);
 
 // Express Configuration
 app.configure(function(){
