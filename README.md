@@ -46,7 +46,7 @@ Use it to start blimb-io
 
 
 
-### Redirection with _nginx_ 
+### Redirection with _nginx_ [1][5]
 
     location ~^/ {
         proxy_pass http://localhost:9007;
@@ -56,10 +56,11 @@ Use it to start blimb-io
         proxy_set_header Host $host;
     }
 
-https://chrislea.com/2013/02/23/proxying-websockets-with-nginx/
+
 
 
   [1]: https://github.com/DaftMonk/generator-angular-fullstack
   [2]: http://nodejs.org/download/
   [3]: http://yeoman.io/
-  [4]: https://github.com/DaftMonk/generator-angular-fullstack#generators     
+  [4]: https://github.com/DaftMonk/generator-angular-fullstack#generators
+  [5]: https://chrislea.com/2013/02/23/proxying-websockets-with-nginx/ 
