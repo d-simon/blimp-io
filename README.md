@@ -13,9 +13,7 @@ _How do I, as a developer, start working on the project?_
  - Make sure MongoDB is up
  - Fire up a local server with `grunt server`
  - List item
-
-## License
-
+ 
 
   [1]: http://nodejs.org/download/
   [2]: http://yeoman.io/
