@@ -30,7 +30,7 @@ angular.module('blimpIO')
         };
 
 
-        socket.on('awesomeThings:updated', function (team) {
+        socket.on('awesomeThings:updated', function () {
             $scope.getAwesomeThings();
             toaster.pop('success', "Update!", "awesomeThings update!");
         });
