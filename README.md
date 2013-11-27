@@ -18,6 +18,16 @@ _How do I, as a developer, start working on the project?_
 _How do I make use of the generators for angular components?_ 
 
  - Please refer to the [angular-fullstack generator documentation][4]
+
+## Server & Deployment
+
+_Deployment build_ 
+ -`grunt heroku` (this creates a folder 'heroku')
+
+_Service & Autostart_
+ - Configure the _blimp-io_ file
+ - Move it to _/etc/init.d_ and set `chmod 0755 /etc/init.d/blimp-io
+ - Start it with `/etc/init.d/blimp-io start` _(start|stop|restart|status)_
  
 
   [1]: https://github.com/DaftMonk/generator-angular-fullstack
