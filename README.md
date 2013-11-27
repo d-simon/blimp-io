@@ -46,12 +46,8 @@ Use it to start blimb-io
 
 
 
-<<<<<<< HEAD
 ### Redirection with _nginx_
 [Proxying WebSockets with nginx][5]
-=======
-### Redirection with _nginx_ [1][5]
->>>>>>> dc850a6173a9c34d88c2ae98cc51a4bf4c679fb0
 
     location ~^/ {
         proxy_pass http://localhost:9007;
