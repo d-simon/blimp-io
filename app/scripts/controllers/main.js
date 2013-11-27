@@ -8,7 +8,7 @@ angular.module('blimpIO')
                 .success(function (awesomeThings) {
                     $scope.awesomeThings = awesomeThings;
                 });
-        }
+        };
 
         $scope.deleteAwesomeThing = function (id) {
             $http.delete('/api/awesomeThings/'+id)
@@ -26,6 +26,7 @@ angular.module('blimpIO')
                     // Currently we don't need this, since we are
                     // emiting to the own socket too (use broadcast instead)
                     // $scope.getAwesomeThings();
+                    return false;
                 });
         };
 
@@ -36,7 +37,7 @@ angular.module('blimpIO')
         socket.on('awesomeThings:updated', function () {
             $scope.getAwesomeThings();
             if ($scope.showUpdateNotifications) {
-                toaster.pop('success', "Update!", "awesomeThings update!");
+                toaster.pop('success', 'Update!', 'awesomeThings update!');
             }
         });
 

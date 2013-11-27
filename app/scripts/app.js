@@ -14,7 +14,7 @@ angular.module('blimpIO', [
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
-        .otherwise({
-            redirectTo: '/'
-        });
+            .otherwise({
+                redirectTo: '/'
+            });
     });
