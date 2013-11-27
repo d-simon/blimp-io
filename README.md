@@ -25,12 +25,12 @@ _How do I make use of the generators for angular components?_
 
 _Deployment build_ 
 
- -`grunt heroku` (this creates a folder 'heroku')
+ - `grunt heroku` (this creates a folder 'heroku')
 
 _Service & Autostart_
 
  - `nano init.d/blimp-io`
- - Move it to /etc/init.d and set `chmod 0755 /etc/init.d/blimp-io
+ - Move it to /etc/init.d and set `chmod 0755 /etc/init.d/blimp-io`
  - Start it with `/etc/init.d/blimp-io start` (start | stop | restart | status)
  
 
