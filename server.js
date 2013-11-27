@@ -44,7 +44,7 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
-  app.use(express.static(path.join(__dirname, 'public', { maxAge: 86400000 /*one day*/ })));
+  app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 /*one day*/ }));
 });
 
 // Routes
