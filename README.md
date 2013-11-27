@@ -14,7 +14,6 @@ _How do I, as a developer, start working on the project?_
  - Inside the blimp-io directory do `npm install && bower install`
  - Make sure MongoDB is up
  - Fire up a local server with `grunt server`
- - List item
 
 _How do I make use of the generators for angular components?_ 
 
