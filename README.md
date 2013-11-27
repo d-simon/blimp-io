@@ -19,15 +19,19 @@ _How do I make use of the generators for angular components?_
 
  - Please refer to the [angular-fullstack generator documentation][4]
 
+
+
 ## Server & Deployment
 
 _Deployment build_ 
+
  -`grunt heroku` (this creates a folder 'heroku')
 
 _Service & Autostart_
- - Configure the _blimp-io_ file
- - Move it to _/etc/init.d_ and set `chmod 0755 /etc/init.d/blimp-io
- - Start it with `/etc/init.d/blimp-io start` _(start|stop|restart|status)_
+
+ - `nano init.d/blimp-io`
+ - Move it to /etc/init.d and set `chmod 0755 /etc/init.d/blimp-io
+ - Start it with `/etc/init.d/blimp-io start` (start | stop | restart | status)
  
 
   [1]: https://github.com/DaftMonk/generator-angular-fullstack
