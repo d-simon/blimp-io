@@ -23,18 +23,43 @@ _How do I make use of the generators for angular components?_
 
 ## Server & Deployment
 
-_Deployment build_ 
+###Generate deployment build
 
- - `grunt heroku` (this creates a folder 'heroku')
+Easy.
 
-_Service & Autostart_
+    grunt heroku 
 
- - `nano init.d/blimp-io`
- - Move it to /etc/init.d and set `chmod 0755 /etc/init.d/blimp-io`
- - Start it with `/etc/init.d/blimp-io start` (start | stop | restart | status)
- 
+###Service & Autostart
+
+A service script is provided together with blimp-io, it assumes the usage of hotnode
+
+    nano init.d/blimp-io
+
+Copy it to /etc/init.d 
+
+    sudo cp init.d/blimb-io /etc/init.d/blimp-io
+    sudo chmod 0755 /etc/init.d/blimp-io
+
+Use it to start blimb-io
+
+    /etc/init.d/blimp-io {start|stop|restart|status}
+
+
+
+### Redirection with _nginx_ 
+
+    location ~^/ {
+        proxy_pass http://localhost:9007;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+    }
+
+https://chrislea.com/2013/02/23/proxying-websockets-with-nginx/
+
 
   [1]: https://github.com/DaftMonk/generator-angular-fullstack
   [2]: http://nodejs.org/download/
   [3]: http://yeoman.io/
-  [4]: https://github.com/DaftMonk/generator-angular-fullstack#generators
+  [4]: https://github.com/DaftMonk/generator-angular-fullstack#generators     
