@@ -7,9 +7,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     async = require('async');
 
+// Setup Express App & Server
 var app = express(),
     server = require('http').createServer(app);
-
 
 // Connect to database
 var db = require('./lib/db/mongo');
@@ -24,20 +24,14 @@ fs.readdirSync(modelsPath).forEach(function (file) {
   require(modelsPath + '/' + file);
 });
 
-// Populate empty DB with dummy data
-require('./lib/db/dummydata');
-
 // Controllers
 var api = require('./lib/controllers/api')(mongoose, async, io);
 
 // Express Configuration
 app.configure(function(){
-    // app.use(express.json());
-    // app.use(express.urlencoded());
-    // app.use(express.cookieParser('VuczXHzVj2QZoznJP4NraKnb0sbhRkSJ01mUzXnQmA0zDNvu0m1SuwAqTVj4oWJE'));
-    // app.use(express.session());
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
+	app.use(express.json());
+    app.use(express.urlencoded());
+    app.use(express.compress())
 	app.use(app.router);
 });
 
@@ -54,7 +48,6 @@ app.configure('production', function(){
 });
 
 // Routes
-
 app.get('/api/repopulate', api.repopulate);
 app.get('/api/awesomeThings', api.findAll);
 app.delete('/api/awesomeThings/:id', api.deleteById)

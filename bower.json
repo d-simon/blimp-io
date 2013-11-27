@@ -1,6 +1,6 @@
 {
-  "name": "blimpIO",
-  "version": "0.0.0",
+  "name": "blimp-io",
+  "version": "0.0.1",
   "dependencies": {
     "angular": "~1.2.0",
     "json3": "~3.2.4",

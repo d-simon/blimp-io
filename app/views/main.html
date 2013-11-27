@@ -1,29 +1,32 @@
 <div class="header">
   <ul class="nav nav-pills pull-right">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
+    <li class="active"><a>Home</a></li>
+    <li><a>Blimps</a></li>
+    <li><a>Settings</a></li>
   </ul>
-  <h3 class="text-muted">angular fullstack update</h3>
+  <h3 class="text-muted">blimp IO</h3>
 </div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">Always a pleasure scaffolding your apps.</p>
-  <p><a class="btn btn-lg btn-success" href="#">Splendid!</a></p>
+  <h1>blimpIO</h1>
+  <p class="lead">Managin' blimps!</p>
+  <p><a class="btn btn-lg btn-success" ng-click="repopulate()">Repopulate Collection!</a></p>
 </div>
 
 <div class="row marketing">
   <div ng-repeat="thing in awesomeThings track by $index">
-      <h4>{{thing.name}} ( <a ng-click="deleteAwesomeThing(thing._id)">{{thing._id}}</a> )</h4>
+      <h4>{{thing.name}} ( {{thing._id}} )
+          <a ng-click="deleteAwesomeThing(thing._id)" class="btn btn-error  pull-right ">
+              <i class="glyphicon glyphicon-trash"></i>
+          </a>
+      </h4>
       <p>{{thing.info}}</p>
+  </div>
+  <div ng-if="awesomeThings.length == 0">
+      <i>Nothing to show. Press Repopulate!</i>
   </div>
 </div>
 
-<div class="" ng-click="repopulate()">
-    repopulate
-</div>
-
 <div class="footer">
-  <p>♥ from the Yeoman team</p>
+  <p>DS ♥ | Show Notifications <input type="checkbox" ng-model="showUpdateNotifications"></p>
 </div>

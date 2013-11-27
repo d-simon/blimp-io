@@ -2,14 +2,13 @@
 
 angular.module('blimpIO')
     .controller('MainCtrl', function ($scope, $http, socket, toaster) {
+
         $scope.getAwesomeThings = function () {
             $http.get('/api/awesomeThings')
                 .success(function (awesomeThings) {
                     $scope.awesomeThings = awesomeThings;
                 });
         }
-        
-        $scope.getAwesomeThings();
 
         $scope.deleteAwesomeThing = function (id) {
             $http.delete('/api/awesomeThings/'+id)
@@ -21,19 +20,24 @@ angular.module('blimpIO')
                 });
         };
 
-
         $scope.repopulate = function () {
             $http.get('/api/repopulate')
                 .success(function () {
-                    $scope.getAwesomeThings();
+                    // Currently we don't need this, since we are
+                    // emiting to the own socket too (use broadcast instead)
+                    // $scope.getAwesomeThings();
                 });
         };
 
+        $scope.showUpdateNotifications = true;
+
+        $scope.getAwesomeThings();
 
         socket.on('awesomeThings:updated', function () {
             $scope.getAwesomeThings();
-            toaster.pop('success', "Update!", "awesomeThings update!");
+            if ($scope.showUpdateNotifications) {
+                toaster.pop('success', "Update!", "awesomeThings update!");
+            }
         });
-
 
     });
