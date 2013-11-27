@@ -1,6 +1,6 @@
 # _blimp-io_
 
-This Web Application will manage one or multiple blimps - so far it is only a raw skeleton.
+blimp-io will manage one or multiple blimps - so far it is only a raw skeleton.
 
 Based on **Node.js**, **Express.js**, **Mongoose.js** (MongoDB), **Socket.io** and **Angular.js**
 
