@@ -19,7 +19,7 @@ module.exports = function (grunt) {
     },
     express: {
         options: {
-            port: process.env.PORT || 9000
+            port: process.env.PORT || 9007
         },
         dev: {
             options: {
@@ -235,7 +235,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
-            'fonts/*'
+            'fonts/*',
+            'img/*',
           ]
         }, {
           expand: true,
