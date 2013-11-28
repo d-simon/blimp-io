@@ -12,7 +12,8 @@ angular.module('blimpIO', [
 
         'toaster',
 
-        'blimpIO.main'
+        'blimpIO.main',
+        'blimpIO.blimps'
     ])
     .config(function ($urlRouterProvider, $stateProvider) {
 
