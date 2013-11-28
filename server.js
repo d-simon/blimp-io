@@ -27,29 +27,14 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-/*passport.use(new LocalStrategy( function(username, password, done) {
-    mongoose.model('User').findOne({ username: username }, function (err, user) {
-        if (err) { return done(err); }
-        if (!user) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
-    });
-}));*/
-
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-
 passport.deserializeUser(function(id, done) {
     mongoose.model('User').findById(id, function (err, user) {
         done(err, user);
     });
 });
-
 passport.use(new LocalStrategy(function(username, password, done) {
     mongoose.model('User').findOne({ username: username }, function(err, user) {
         if (err) { return done(err); }
@@ -66,15 +51,12 @@ passport.use(new LocalStrategy(function(username, password, done) {
 }));
 
 // Auth Function
-//   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
-
 function auth (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
     res.send(401);
 }
-
 
 // Controllers
 var api = require('./lib/controllers/api')(mongoose, async, io);
@@ -105,7 +87,6 @@ app.configure('production', function(){
 });
 
 
-
 // Routes
 app.get('/api/loggedin', function(req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
@@ -126,26 +107,29 @@ app.post('/api/logout', function(req, res){
     req.logOut();
     res.send(200);
 });
-app.get('/api/awesomeThings', auth, api.findAll);
+
 app.get('/api/repopulate', auth, api.repopulate);
+
+app.get('/api/awesomeThings', auth, api.findAll);
 app.delete('/api/awesomeThings/:id', auth, api.deleteById)
 
 
 // Start server
 var port = process.env.PORT || 9007;
 server.listen(port, function () {
-    console.log('Creating user blimp/blimp .....');
-    mongoose.model('User').find({}).remove();
+    console.log('Wiping all existing users .....');
+    // Create default user (blim/blimp)
+    console.log('Creating default user blimp/blimp .....');
     mongoose.model('User').create({
             username : 'blimp',
             email : 'me@davidsimon.ch',
             password : 'blimp'
         }, function(err) {
             if (!err) {
-                console.log('User created!');
+                console.log('Success: Default user created!');
             } else {
-                console.log('Error: Does user already exist?')
+                console.log('Error: Creating default user failed! Does it already exist?')
             }
         });
-    console.log('Express server listening on port %d in %s mode', port, app.get('env'));
+    console.log('The express server listening on port %d in %s mode', port, app.get('env'));
 });
