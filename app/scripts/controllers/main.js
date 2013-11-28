@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('blimpIO')
-    .controller('MainCtrl', function ($scope, $http, socket, toaster) {
+    .controller('MainCtrl', function ($scope, $rootScope, $http, socket, toaster) {
 
         $scope.getAwesomeThings = function () {
             $http.get('/api/awesomeThings')
@@ -34,11 +34,10 @@ angular.module('blimpIO')
 
         $scope.getAwesomeThings();
 
-        socket.on('awesomeThings:updated', function () {
+        $scope.$on('socket:awesomeThings:updated', function () {
             $scope.getAwesomeThings();
             if ($scope.showUpdateNotifications) {
                 toaster.pop('success', 'Update!', 'awesomeThings update!');
             }
         });
-
     });
