@@ -8,18 +8,28 @@ Generated with [angular-fullstack][1]
 
 ## Project Setup
 
-_How do I, as a developer, start working on the project?_ 
+###How do I, as a developer, start working on the project?
 
  - You will need [npm][2] and [yeoman][3] (Grunt.js, Bower)
  - Inside the blimp-io directory do `npm install && bower install`
  - Make sure MongoDB is up
  - Fire up a local server with `grunt server`
 
-_How do I make use of the generators for angular components?_ 
+###How do I make use of the generators for angular components?
 
  - Please refer to the [angular-fullstack generator documentation][4]
 
+###What's the default user login?
 
+Username: **blimp**
+
+Password: **blimp**
+
+This user will automatically be created at server start. Disable it in the **_server.js**_ at the bottom.
+
+###How do I add more users?
+
+Currently only manually, or by extending the initialisation part in the **_server.js**_ at the bottom.
 
 ## Server & Deployment
 
@@ -31,7 +41,7 @@ Easy.
 
 ###Service & Autostart
 
-A service script is provided together with blimp-io, it assumes the usage of hotnode
+A service script is provided together with blimp-io; ~~it assumes the usage of hotnode~~
 
     nano init.d/blimp-io
 
