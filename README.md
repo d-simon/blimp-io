@@ -25,11 +25,11 @@ Username: **blimp**
 
 Password: **blimp**
 
-This user will automatically be created at server start. Disable it in the **_server.js**_ at the bottom.
+This user will automatically be created at server start. Disable it in the **_server.js_** at the bottom.
 
 ###How do I add more users?
 
-Currently only manually, or by extending the initialisation part in the **_server.js**_ at the bottom.
+Currently only manually, or by extending the initialisation part in the **_server.js_** at the bottom.
 
 ## Server & Deployment
 
