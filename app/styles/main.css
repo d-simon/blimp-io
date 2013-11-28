@@ -16,8 +16,14 @@ body {
 }
 
 .logo.main {
-    width:210px;
-    height:60px;
+    margin:0px 0 14px 10px;
+    width:200px;
+    height:38px;
+    background-position: 0px 6px;
+}
+
+.header .nav {
+    margin-bottom: 10px;
 }
 
 /* ==============================================================================
