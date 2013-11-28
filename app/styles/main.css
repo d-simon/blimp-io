@@ -5,6 +5,21 @@ body {
 .text-grey { color:#999; }
 .text-lgrey { color:#ccc; }
 
+.logo {
+  background:url(../img/logo.svg) 0 0 no-repeat;
+  background-size: 100%;
+}
+
+.logo.side {
+  background:url(../img/logo_side.svg) 0 0 no-repeat;
+  background-size: 100%;    
+}
+
+.logo.main {
+    width:210px;
+    height:60px;
+}
+
 /* ==============================================================================
    Original Stylings
 =============================================================================== */
@@ -93,6 +108,12 @@ body {
    Login Form
 =============================================================================== */
 
+.form-signin-logo
+{
+    width: 192px;
+    height: 140px;
+    margin: 0 auto 10px;
+}
 .form-signin
 {
     max-width: 330px;

@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-            <h1 class="text-center login-title">blimpIO</h1>
             <div class="account-wall">
-                <img class="profile-img" src="img/user.png" alt="">
+                <div class="form-signin-logo logo">
+                </div>
                 <form class="form-signin" ng-submit="login()">
                     <input type="text" name="username" ng-model="userdata.username" class="form-control" placeholder="blimp" required autofocus>
                     <input type="password" name="password" ng-model="userdata.password" class="form-control" placeholder="blimp" required>
@@ -16,7 +16,6 @@
                     <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
-            <!--<a href="#" class="text-center new-account">Create an account </a>-->
         </div>
     </div>
 </div>
