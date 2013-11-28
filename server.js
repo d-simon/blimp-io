@@ -117,8 +117,6 @@ app.delete('/api/awesomeThings/:id', auth, api.deleteById)
 // Start server
 var port = process.env.PORT || 9007;
 server.listen(port, function () {
-    console.log('Wiping all existing users .....');
-    // Create default user (blim/blimp)
     console.log('Creating default user blimp/blimp .....');
     mongoose.model('User').create({
             username : 'blimp',

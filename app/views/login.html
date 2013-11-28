@@ -5,8 +5,8 @@
             <div class="account-wall">
                 <img class="profile-img" src="img/user.png" alt="">
                 <form class="form-signin" ng-submit="login()">
-                    <input type="text" ng-model="userdata.username" class="form-control" placeholder="blimp" required autofocus>
-                    <input type="password" ng-model="userdata.password" class="form-control" placeholder="blimp" required>
+                    <input type="text" name="username" ng-model="userdata.username" class="form-control" placeholder="blimp" required autofocus>
+                    <input type="password" name="password" ng-model="userdata.password" class="form-control" placeholder="blimp" required>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">
                         Sign in</button>
                     <label class="checkbox pull-left">
