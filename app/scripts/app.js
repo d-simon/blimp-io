@@ -3,72 +3,49 @@
 angular.module('blimpIO', [
         'ngResource',
         'ngSanitize',
-        'ngRoute',
         'ngAnimate',
+
+        'ui.router',
+
         'btford.socket-io',
         'http-auth-interceptor',
-        'toaster'
+
+        'toaster',
+
+        'blimpIO.auth'
     ])
-    .config(function ($routeProvider) {
+    .config(function ($urlRouterProvider, $stateProvider, $authServiceProvider, $auth) {
 
-        var isAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
-                var deferred = $q.defer();
-                $http.get('/api/loggedin')
-                    .success(function (user) {
-                        if (user !== '0') {
-                            $timeout(deferred.resolve, 0);
-                        } else {
-                            //$rootScope.message = 'You need to log in.';
-                            $timeout(function () { deferred.reject(); }, 0);
-                            $location.url('/login');
-                        }
-                    });
-                return deferred.promise;
-            }],
-            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
-                var deferred = $q.defer();
-                $http.get('/api/loggedin')
-                    .success(function (user) {
-                        if (user === '0') {
-                            $timeout(deferred.resolve, 0);
-                        } else {
-                            //$rootScope.message = 'You need to log in.';
-                            $timeout(function () { deferred.reject(); }, 0);
-                            $location.url('/main');
-                        }
-                    });
-                return deferred.promise;
-            }],
-            doLogout = ['$q', '$timeout', '$http', function ($q, $timeout, $http) {
-                var deferred = $q.defer();
-                $http.post('/api/logout')
-                    .success(function () {
-                        $timeout(deferred.resolve, 0);
-                    })
-                    .error(function () {
-                        $timeout(function () { deferred.reject(); }, 0);
-                    });
-                return deferred.promise;
-            }];
+        $authServiceProvider.setUrls({
+            login: '/login',
+            main: '/',
+            api: {
+                authed: '/api/loggedin',
+                logout: '/api/logout'
+            }
+        })        
 
-        $routeProvider
-            .when('/', {
-                resolve: { check: isAlreadyAuthed },
+        $urlRouterProvider.otherwise("/");
+
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                resolve: { check: $auth.isAlreadyAuthed },
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
-            .when('/logout', {
-                resolve: { check: doLogout },
+            .state('logout', {
+                url: '/logout',
+                resolve: { check: $auth.doLogout },
                 redirectTo: '/'
             })
-            .when('/main', {
-                resolve: { check: isAuthed },
+            .state('main', {
+                url: '/',
+                resolve: { check: $auth.isAuthed },
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
-            })
-            .otherwise({
-                redirectTo: '/'
             });
+
     })
     .run(function ($rootScope, $location, socket) {
         // Inline Routing
