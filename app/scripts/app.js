@@ -10,7 +10,9 @@ angular.module('blimpIO', [
         'btford.socket-io',
         'http-auth-interceptor',
 
-        'toaster'
+        'toaster',
+
+        'blimpIO.main'
     ])
     .config(function ($urlRouterProvider, $stateProvider) {
 
@@ -37,7 +39,7 @@ angular.module('blimpIO', [
                         } else {
                             //$rootScope.message = 'You need to log in.';
                             $timeout(function () { deferred.reject(); }, 0);
-                            $location.url(urls.main);
+                            $location.url(urls.index);
                         }
                     });
                 return deferred.promise;
@@ -59,7 +61,7 @@ angular.module('blimpIO', [
         var urls = {
                 login: '/login',
                 logout: '/logout',
-                main: '/',
+                index: '/',
                 api: {
                     authed: '/api/loggedin',
                     logout: '/api/logout'
@@ -69,7 +71,7 @@ angular.module('blimpIO', [
 
 
 
-        $urlRouterProvider.otherwise(urls.main);
+        $urlRouterProvider.otherwise(urls.index);
 
         $stateProvider
             .state('login', {
@@ -83,11 +85,10 @@ angular.module('blimpIO', [
                 resolve: { check: doLogout },
                 redirectTo: urls.login
             })
-            .state('main', {
-                url: urls.main,
+            .state('index', {
+                url: urls.index,
                 resolve: { check: isAuthed },
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                abstract: true
             });
 
     })
