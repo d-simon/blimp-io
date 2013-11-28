@@ -1,20 +1,17 @@
 'use strict';
 
 angular.module('blimpIO', [
-    'ngResource',
-    'ngSanitize',
-    'ngRoute',
-    'ngAnimate',
-    'btford.socket-io',
-    'http-auth-interceptor',
-    'toaster'
-])
-    .config(function ($locationProvider) {
-        // $locationProvider.html5Mode(true);       
-    })
+        'ngResource',
+        'ngSanitize',
+        'ngRoute',
+        'ngAnimate',
+        'btford.socket-io',
+        'http-auth-interceptor',
+        'toaster'
+    ])
     .config(function ($routeProvider) {
 
-        var isAuthed = function ($q, $timeout, $http, $location, $rootScope) {
+        var isAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
                 var deferred = $q.defer();
                 $http.get('/api/loggedin')
                     .success(function (user) {
@@ -27,8 +24,8 @@ angular.module('blimpIO', [
                         }
                     });
                 return deferred.promise;
-            },
-            isAlreadyAuthed = function ($q, $timeout, $http, $location, $rootScope) {
+            }],
+            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
                 var deferred = $q.defer();
                 $http.get('/api/loggedin')
                     .success(function (user) {
@@ -41,8 +38,8 @@ angular.module('blimpIO', [
                         }
                     });
                 return deferred.promise;
-            },
-            doLogout = function ($q, $timeout, $http, $location, $rootScope) {
+            }],
+            doLogout = ['$q', '$timeout', '$http', function ($q, $timeout, $http) {
                 var deferred = $q.defer();
                 $http.post('/api/logout')
                     .success(function () {
@@ -52,7 +49,8 @@ angular.module('blimpIO', [
                         $timeout(function () { deferred.reject(); }, 0);
                     });
                 return deferred.promise;
-            };
+            }];
+
         $routeProvider
             .when('/', {
                 resolve: { check: isAlreadyAuthed },
