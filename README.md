@@ -2,7 +2,7 @@
 
 blimp-io will manage one or multiple blimps - so far it is only a raw skeleton.
 
-Based on **Node.js**, **Express.js**, **Mongoose.js** (MongoDB), **Socket.io** and **Angular.js**
+Based on **Node.js**, **Express.js**, **Mongoose.js** (MongoDB), **Socket.io**, **Passport.js** (+Bcrypt) and **Angular.js**
 
 Generated with [angular-fullstack][1]
 
