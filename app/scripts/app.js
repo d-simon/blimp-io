@@ -14,7 +14,7 @@ angular.module('blimpIO', [
     ])
     .config(function ($urlRouterProvider, $stateProvider) {
 
-        var isAuthed = function ($q, $timeout, $http, $location) {
+        var isAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
@@ -27,8 +27,8 @@ angular.module('blimpIO', [
                         }
                     });
                 return deferred.promise;
-            },
-            isAlreadyAuthed = function ($q, $timeout, $http, $location) {
+            }],
+            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
@@ -41,8 +41,8 @@ angular.module('blimpIO', [
                         }
                     });
                 return deferred.promise;
-            },
-            doLogout = function ($q, $timeout, $http, $location) {
+            }],
+            doLogout = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
                 var deferred = $q.defer();
                 $http.post(urls.api.logout)
                     .success(function () {
@@ -53,7 +53,7 @@ angular.module('blimpIO', [
                         $timeout(function () { deferred.reject(); }, 0);
                     });
                 return deferred.promise;
-            };
+            }];
 
 
         var urls = {
