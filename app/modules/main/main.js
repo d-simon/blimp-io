@@ -3,7 +3,7 @@
 angular.module('blimpIO.main', [])
     .config(function ($stateProvider) {
         $stateProvider
-            .state('main', {
+            .state('index.main', {
                 url: '/',
                 templateUrl: 'modules/main/main.html',
                 controller: 'MainCtrl'

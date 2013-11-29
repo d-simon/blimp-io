@@ -1,35 +1,19 @@
-<div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li class="active"><a>Home</a></li>
-    <li><a>Blimps</a></li>
-    <li><a>Settings</a></li>
-    <li><a ng-click="go('/logout')">Logout</a></li>
-  </ul>
-  <!--<h3 class="text-muted">blimpIO</h3>-->
-  <div class="logo side main">
-  </div>
-</div>
-
 <div class="jumbotron">
   <h1>blimpIO</h1>
   <p class="lead">Managin' blimps!</p>
-  <p><a class="btn btn-lg btn-success" ng-click="repopulate()">Repopulate Collection!</a></p>
+  <p><a class="btn btn-lg btn-success btn3d" ng-click="repopulate()">Repopulate Collection!</a></p>
 </div>
 
 <div class="row marketing">
   <div ng-repeat="thing in awesomeThings track by $index">
       <h4>{{thing.name}} ( {{thing._id}} )
-          <a ng-click="deleteAwesomeThing(thing._id)" class="btn btn-error  pull-right ">
+          <a ng-click="deleteAwesomeThing(thing._id)" class="btn btn-large btn-default btn-error btn3d pull-right ">
               <i class="glyphicon glyphicon-trash"></i>
           </a>
       </h4>
       <p>{{thing.info}}</p>
   </div>
-  <div ng-if="awesomeThings.length == 0">
+  <div ng-if="!awesomeThings || awesomeThings.length == 0">
       <i>Nothing to show. Press Repopulate!</i>
   </div>
-</div>
-
-<div class="footer">
-  <p>DS ♥ | Show Notifications <input type="checkbox" ng-model="showUpdateNotifications"></p>
 </div>

@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('blimpIO')
+angular.module('blimpIO.login', [])
     .controller('LoginCtrl', function ($scope, $location, $http) {
 
         $scope.userdata = {
             username: '',
-            password: ''
+            password: '',
+            rememberme: false,
         };
 
         $scope.login = function () {

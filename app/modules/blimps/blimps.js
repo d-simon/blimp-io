@@ -3,8 +3,8 @@
 angular.module('blimpIO.blimps', [])
     .config(function ($stateProvider) {
         $stateProvider
-            .state('blimps', {
-                url: '/',
+            .state('index.blimps', {
+                url: '/blimps',
                 templateUrl: 'modules/blimps/blimps.html',
                 controller: 'BlimpsCtrl'
             });

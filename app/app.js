@@ -12,6 +12,8 @@ angular.module('blimpIO', [
 
         'toaster',
 
+        'blimpIO.index',
+        'blimpIO.login',
         'blimpIO.main',
         'blimpIO.blimps'
     ])
@@ -56,10 +58,9 @@ angular.module('blimpIO', [
                         $timeout(function () { deferred.reject(); }, 0);
                     });
                 return deferred.promise;
-            }];
-
-
-        var urls = {
+            }],
+            // Url & Response Config
+            urls = {
                 login: '/login',
                 logout: '/logout',
                 index: '/',
@@ -70,15 +71,13 @@ angular.module('blimpIO', [
             },
             errorResponse = '0';
 
-
-
         $urlRouterProvider.otherwise(urls.index);
 
         $stateProvider
             .state('login', {
                 url: urls.login,
                 resolve: { check: isAlreadyAuthed },
-                templateUrl: 'views/login.html',
+                templateUrl: 'modules/login/login.html',
                 controller: 'LoginCtrl'
             })
             .state('logout', {
@@ -87,13 +86,13 @@ angular.module('blimpIO', [
                 redirectTo: urls.login
             })
             .state('index', {
-                url: urls.index,
+                abstract: true,
                 resolve: { check: isAuthed },
-                abstract: true
+                templateUrl: 'modules/index/index-view.html'
             });
 
     })
-    .run(function ($rootScope, $location, socket) {
+    .run(function ($rootScope, $location, socket, $state, $stateParams) {
         // Inline Routing
         $rootScope.go = function (hash) {
             $location.path(hash);
@@ -102,6 +101,9 @@ angular.module('blimpIO', [
         // Auth Interceptor
         $rootScope.$on('event:auth-loginRequired', function () { $location.url("/login") });
 
+        // State
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
 
         // Socket event relaying
         socket.forward(['awesomeThings:updated']);

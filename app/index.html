@@ -11,11 +11,11 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+
+    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css">
-
-    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
@@ -65,10 +65,11 @@
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
+        <script src="app.js"></script>
+        <script src="modules/index/index.js"></script>
+        <script src="modules/login/login.js"></script>
         <script src="modules/main/main.js"></script>
         <script src="modules/blimps/blimps.js"></script>
-        <script src="scripts/controllers/login.js"></script>
         <!-- endbuild -->
 
     <script src="/socket.io/socket.io.js"></script>
