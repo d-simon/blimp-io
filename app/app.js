@@ -19,28 +19,28 @@ angular.module('blimpIO', [
     ])
     .config(function ($urlRouterProvider, $stateProvider) {
 
-        var isAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
+        var isAuthed = ['$q', '$timeout', '$http', '$location', 'toaster', function ($q, $timeout, $http, $location, toaster) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
                         if (user !== errorResponse) {
                             $timeout(deferred.resolve, 0);
+                            toaster.pop('success', 'Welcome back!');
                         } else {
-                            //$rootScope.message = 'You need to log in.';
                             $timeout(function () { deferred.reject(); }, 0);
                             $location.url(urls.login);
                         }
                     });
                 return deferred.promise;
             }],
-            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', function ($q, $timeout, $http, $location) {
+            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', 'toaster', function ($q, $timeout, $http, $location, toaster) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
                         if (user === errorResponse) {
                             $timeout(deferred.resolve, 0);
                         } else {
-                            //$rootScope.message = 'You need to log in.';
+                            toaster.pop('info', 'You\'re alread logged in!');
                             $timeout(function () { deferred.reject(); }, 0);
                             $location.url(urls.index);
                         }
