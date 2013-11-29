@@ -26,6 +26,26 @@ body {
     margin-bottom: 10px;
 }
 
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    background:none;
+    color:#000;
+    font-size: 1.2em;
+    font-weight:bold;
+}
+.nav-pills a,
+.nav-pills a:active,
+.nav-pills a:focus,
+.nav-pills a:hover {
+    color: #999;
+    font-size:1.1em;
+    line-height:24px;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+    color: #555;
+    font-size:1.1em;
+}
+
 /* ==============================================================================
    Original Stylings
 =============================================================================== */
