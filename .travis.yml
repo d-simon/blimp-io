@@ -13,3 +13,4 @@ deploy:
   app: blimp-io
   on:
     repo: d-simon/blimp-io
+    branch: master
