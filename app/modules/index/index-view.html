@@ -3,7 +3,7 @@
     <li ui-sref="index.main" ng-class="{ active: $state.includes('index.main') }"><a>Dashboard</a></li>
     <li ui-sref="index.blimps" ng-class="{ active: $state.includes('index.blimps') }"><a>Blimps</a></li>
     <li><a>Settings</a></li>
-    <li><a>Users</a></li>
+    <li ui-sref="index.users" ng-class="{ active: $state.includes('index.users') }"><a>Users</a></li>
     <li><a ng-click="go('/logout')">Logout</a></li>
   </ul>
   <!--<h3 class="text-muted">blimpIO</h3>-->
@@ -15,5 +15,5 @@
 </ui-view>
 
 <div class="footer">
-  <p>DS ♥ | Show Notifications <input type="checkbox" ng-model="showUpdateNotifications"></p>
+  <p>DS ♥</p>
 </div>

@@ -38,14 +38,10 @@ angular.module('blimpIO.main', [])
                 });
         };
 
-        $scope.showUpdateNotifications = true;
-
         $scope.getAwesomeThings();
 
-        $scope.$on('socket:awesomeThings:updated', function () {
+        $scope.$on('socket:data:update:awesomeThings', function () {
             $scope.getAwesomeThings();
-            if ($scope.showUpdateNotifications) {
-                toaster.pop('success', 'Update!', 'awesomeThings update!');
-            }
+            toaster.pop('success', 'Update!', 'awesomeThings update!');
         });
     });

@@ -1,24 +1,27 @@
 body {
-    color:#333;
+    color: #333;
 }
 
-.text-grey { color:#999; }
-.text-lgrey { color:#ccc; }
+.text-grey { color: #999; }
+.text-lgrey { color: #ccc; }
+.text-bold { font-weight: bold; }
+
+.clickable { cursor: pointer;}
 
 .logo {
-  background:url(../img/logo.svg) 0 0 no-repeat;
+  background: url(../img/logo.svg) 0 0 no-repeat;
   background-size: 100%;
 }
 
 .logo.side {
-  background:url(../img/logo_side.svg) 0 0 no-repeat;
+  background: url(../img/logo_side.svg) 0 0 no-repeat;
   background-size: 100%;    
 }
 
 .logo.main {
-    margin:0px 0 14px 10px;
-    width:200px;
-    height:38px;
+    margin: 0px 0 14px 10px;
+    width: 200px;
+    height: 38px;
     background-position: 0px 6px;
 }
 
@@ -27,25 +30,25 @@ body {
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
-    background:none;
-    color:#000;
+    background: none;
+    color: #000;
     font-size: 1.2em;
-    font-weight:bold;
-    cursor:default;
+    font-weight: bold;
+    cursor: default;
 }
 .nav-pills a,
 .nav-pills a:active,
 .nav-pills a:focus,
 .nav-pills a:hover {
     color: #999;
-    font-size:1.1em;
-    line-height:24px;
-    cursor:pointer;
+    font-size: 1.1em;
+    line-height: 24px;
+    cursor: pointer;
 }
 
 .nav>li>a:hover, .nav>li>a:focus {
     color: #555;
-    font-size:1.1em;
+    font-size: 1.1em;
 }
 
 /* ==============================================================================

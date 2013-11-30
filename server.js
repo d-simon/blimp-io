@@ -61,8 +61,6 @@ function auth (req, res, next) {
     res.send(401);
 }
 
-// Controllers
-var api = require('./lib/controllers/api')(mongoose, async, io);
 
 // Express Configuration
 app.configure(function(){
@@ -90,9 +88,25 @@ app.configure('production', function(){
 });
 
 
+
+// Controllers
+var api = {
+        awesomethings: require('./lib/controllers/awesomethings')(mongoose, async, io),
+        blimps: require('./lib/controllers/blimps')(mongoose, async, io),
+        users: require('./lib/controllers/users')(mongoose, async, io)
+    };
+
 // Routes
 app.get('/api/loggedin', function(req, res) {
-    res.send(req.isAuthenticated() ? req.user : '0');
+    if (req.isAuthenticated && req.user) {
+        res.send({ 
+            username: req.user.username,
+            email: req.user.email
+        });
+    } else {
+        res.send('0');
+    }
+    
 });
 app.post('/api/login', function(req, res) {
     console.log('before authenticate');
@@ -111,10 +125,22 @@ app.post('/api/logout', function(req, res){
     res.send(200);
 });
 
-app.get('/api/repopulate', auth, api.repopulate);
+app.get('/api/repopulate', auth, api.awesomethings.repopulate);
 
-app.get('/api/awesomeThings', auth, api.findAll);
-app.delete('/api/awesomeThings/:id', auth, api.deleteById)
+app.get('/api/awesomeThings', auth, api.awesomethings.findAll);
+app.delete('/api/awesomeThings/:id', auth, api.awesomethings.deleteById);
+
+app.get('/api/blimps', auth, api.blimps.findAll);
+app.get('/api/blimps/:id', auth, api.blimps.findById);
+app.post('/api/blimps', auth, api.blimps.createNew);
+app.put('/api/blimps/:id', auth, api.blimps.updateById);
+app.delete('/api/blimps/:id', auth, api.blimps.deleteById);
+
+app.get('/api/users', auth, api.users.findAll);
+app.get('/api/users/:id', auth, api.users.findById);
+app.post('/api/users', auth, api.users.createNew);
+app.put('/api/users/:id', auth, api.users.updateById);
+app.delete('/api/users/:id', auth, api.users.deleteById);
 
 
 // Start server

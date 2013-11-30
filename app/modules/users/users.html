@@ -1,0 +1,45 @@
+<div class="row" ng-show="!$state.includes('index.users.add')" >
+
+    <div class="col-lg-12">
+        <button type="button" ng-click="$state.go('index.users.add')" class="btn">New User</button>
+    </div>
+</div>
+<form ng-submit="createUser()">
+    <div class="row" ng-show="$state.includes('index.users.add')">
+        <div class="col-lg-3">
+            <input type="text" placeholder="Username" class="form-control testBox" ng-model="newUser.username">
+        </div>
+        <div class="col-lg-3">
+            <input type="password" placeholder="Password" class="form-control testBox" ng-model="newUser.password">
+        </div>
+        <div class="col-lg-3">
+            <input type="email" placeholder="Email" class="form-control testBox" ng-model="newUser.email">
+        </div>
+        <div class="col-lg-3">
+            <button type="submit" class="btn btn-success btn-block">Create! </button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-lg-12">
+        <br>
+        <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in users | orderBy:'username' track by $index"  ng-class="{ 'text-bold': (user.username == current.user.username) }">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td><span class="glyphicon glyphicon-trash pull-right clickable" ng-click="deleteUser(user._id)"></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+
+</div>

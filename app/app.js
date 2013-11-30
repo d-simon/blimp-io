@@ -15,16 +15,18 @@ angular.module('blimpIO', [
         'blimpIO.index',
         'blimpIO.login',
         'blimpIO.main',
-        'blimpIO.blimps'
+        'blimpIO.blimps',
+        'blimpIO.users'
     ])
     .config(function ($urlRouterProvider, $stateProvider) {
 
-        var isAuthed = ['$q', '$timeout', '$http', '$location', 'toaster', function ($q, $timeout, $http, $location, toaster) {
+        var isAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster', function ($q, $timeout, $http, $rootScope, $location, toaster) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
                         if (user !== errorResponse) {
                             $timeout(deferred.resolve, 0);
+                            $rootScope.current.user = user;
                             toaster.pop('success', 'Welcome back!');
                         } else {
                             $timeout(function () { deferred.reject(); }, 0);
@@ -33,7 +35,7 @@ angular.module('blimpIO', [
                     });
                 return deferred.promise;
             }],
-            isAlreadyAuthed = ['$q', '$timeout', '$http', '$location', 'toaster', function ($q, $timeout, $http, $location, toaster) {
+            isAlreadyAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster', function ($q, $timeout, $http, $rootScope, $location, toaster) {
                 var deferred = $q.defer();
                 $http.get(urls.api.authed)
                     .success(function (user) {
@@ -41,6 +43,7 @@ angular.module('blimpIO', [
                             $timeout(deferred.resolve, 0);
                         } else {
                             toaster.pop('info', 'You\'re alread logged in!');
+                            $rootScope.current.user = user;
                             $timeout(function () { deferred.reject(); }, 0);
                             $location.url(urls.index);
                         }
@@ -92,21 +95,36 @@ angular.module('blimpIO', [
             });
 
     })
-    .run(function ($rootScope, $location, socket, $state, $stateParams) {
+    .run(function ($rootScope, $location, $http, socket, $state, $stateParams) {
         // Inline Routing
         $rootScope.go = function (hash) {
             $location.path(hash);
         };
 
+        $rootScope.current = {};
+
         // Auth Interceptor
-        $rootScope.$on('event:auth-loginRequired', function () { $location.url("/login") });
+        $rootScope.$on('event:auth-loginRequired', function () { 
+            $rootScope.current.user = null;
+            $location.url("/login") 
+        });
+
+        if (!$rootScope.current.user) {
+            $http.get('/api/loggedin')
+                    .success(function (user) {
+                        if (user !== '0') {
+                            $rootScope.current.user = user;
+                        }
+                    });
+        }
 
         // State
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
         // Socket event relaying
-        socket.forward(['awesomeThings:updated']);
+        socket.forward([
+            'data:update:awesomeThings',
+            'data:update:blimps',
+            'data:update:users']);
     });
-
-
