@@ -1,8 +1,15 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
+- npm install -g bower grunt-cli
+- bower install
 services:
-  - mongodb
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: C6FBfA2uFTTO5JF2nde9tTg8+2SzqjigycQNiRTLJeNIVMao6Dj880UGMRXCkdWuBSxDBnZZFr6So0/lLmSyNmKe3XJCrMDtWI2AAMZy5945rJvTEfXE8BxdgUos16pXVM4BY4KpmUxeTU7eNHriz2wMjRR8eJ/h1oYtDz7Q+bU=
+  app: blimp-io
+  on:
+    repo: d-simon/blimp-io
