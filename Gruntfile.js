@@ -168,16 +168,16 @@ module.exports = function (grunt) {
         assetsDirs: ['<%= yeoman.dist %>']
       }
     },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
+    // imagemin: {
+    //   dist: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: '<%= yeoman.app %>/images',
+    //       src: '{,*/}*.{png,jpg,jpeg}',
+    //       dest: '<%= yeoman.dist %>/images'
+    //     }]
+    //   }
+    // },
     svgmin: {
       dist: {
         files: [{
@@ -270,6 +270,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      images: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/images',
+        src: '{,*/}*.{png,jpg,jpeg}',
+        dest: '<%= yeoman.dist %>/images'
       }
     },
     concurrent: {
@@ -284,7 +290,7 @@ module.exports = function (grunt) {
       dist: [
         'coffee',
         'copy:styles',
-        'imagemin',
+        'copy:images',
         'svgmin',
         'htmlmin'
       ]
@@ -365,6 +371,9 @@ module.exports = function (grunt) {
     'build',
     'clean:heroku',
     'copy:heroku'    
+  ]);
+  grunt.registerTask('heroku:production', [
+    'build'
   ]);
 
   grunt.registerTask('default', [
