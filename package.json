@@ -8,9 +8,7 @@
     "socket.io": "~0.9.16",
     "passport-local": "~0.1.6",
     "passport": "~0.1.17",
-    "bcrypt": "~0.7.7"
-  },
-  "devDependencies": {
+    "bcrypt": "~0.7.7",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
     "grunt-concurrent": "~0.4.1",
@@ -32,7 +30,9 @@
     "grunt-usemin": "~2.0.0",
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
-    "time-grunt": "~0.2.1",
+    "time-grunt": "~0.2.1"
+  },
+  "devDependencies": {
     "grunt-express-server": "~0.4.5",
     "grunt-open": "~0.2.0",
     "karma-ng-scenario": "~0.1.0",
