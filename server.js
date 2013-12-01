@@ -146,17 +146,25 @@ app.delete('/api/users/:id', auth, api.users.deleteById);
 // Start server
 var port = process.env.PORT || 9007;
 server.listen(port, function () {
-    console.log('Creating default user blimp/blimp .....');
-    mongoose.model('User').create({
-            username : 'blimp',
-            email : 'me@davidsimon.ch',
-            password : 'blimp'
-        }, function(err) {
-            if (!err) {
-                console.log('Success: Default user created!');
-            } else {
-                console.log('Error: Creating default user failed! Does it already exist?')
+    mongoose.model('User')
+        .count(function (err, count) {
+            if (!err && count === 0) {
+                console.log('No Users Found! \nCreating default user blimp/blimp .....');
+                mongoose.model('User').create({
+                        username : 'blimp',
+                        email : 'me@davidsimon.ch',
+                        password : 'blimp'
+                    }, function(err) {
+                        if (!err) {
+                            console.log('Success: Default user created!');
+                        } else {
+                            console.log('Error: Creating default user failed!')
+                        }
+                    });
+                
             }
         });
+    
+   
     console.log('The express server listening on port %d in %s mode', port, app.get('env'));
 });

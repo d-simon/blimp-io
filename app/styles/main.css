@@ -8,6 +8,11 @@ body {
 
 .clickable { cursor: pointer;}
 
+.btn.btn-grey {
+    background:#eee;
+    color:#333;
+}
+
 .logo {
   background: url(../img/logo.svg) 0 0 no-repeat;
   background-size: 100%;

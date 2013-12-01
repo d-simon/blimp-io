@@ -21,26 +21,6 @@ angular.module('blimpIO.users', [])
                 });
         };
 
-        $scope.deleteUser = function (id) {
-            $http.delete('/api/users/'+id)
-                .success(function () {
-                    var spliceIndex = _.findIndex($scope.users, { '_id': id });
-                    if (spliceIndex > -1) {
-                        $scope.users.splice(spliceIndex, 1);
-                    }
-                });
-        };
-
-        $scope.repopulate = function () {
-            $http.get('/api/repopulate')
-                .success(function () {
-                    // Currently we don't need this, since we are
-                    // emiting to the own socket too (use broadcast instead)
-                    // $scope.getUsers();
-                    return false;
-                });
-        };
-
         $scope.createUser = function () {
             $http.post('/api/users', $scope.newUser)
                 .success(function () {
@@ -50,6 +30,16 @@ angular.module('blimpIO.users', [])
                     $state.go('index.users');
                     $scope.newUser = {};
                     return false;
+                });
+        };
+
+        $scope.deleteUser = function (id) {
+            $http.delete('/api/users/'+id)
+                .success(function () {
+                    var spliceIndex = _.findIndex($scope.users, { '_id': id });
+                    if (spliceIndex > -1) {
+                        $scope.users.splice(spliceIndex, 1);
+                    }
                 });
         };
 
