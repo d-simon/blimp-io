@@ -1,3 +1,22 @@
+<div class="row" >
+    <div class="col-lg-12">
+        <button type="button" ng-click="createBlimp()" class="btn btn-grey">New Blimp</button>
+    </div>
+</div>
 <div class="row marketing">
-Blimps
+    <div class="col-lg-12">
+        <i ng-if="!blimps">No Blimps yet.</i>
+        <div class="row">
+            <div class="col-lg-6" ng-repeat="blimp in blimps | orderBy:'name' track by $index">
+                <h2 >{{ blimp.name }}</h2>
+                <b> API Key</b>
+                <input type="text"  class="form-control" value="{{ blimp.apikey }}">
+                <br>
+                <br>
+                <button class="btn btn-grey" ng-click="deleteBlimp(blimp._id)">
+                    Delete <span class="glyphicon glyphicon-trash clickable"></span>
+                </button>
+                <br><br><br>
+            </div>
+    </div>
 </div>

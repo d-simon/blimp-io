@@ -31,7 +31,10 @@
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.2.1",
     "bower": "~1.2.7",
-    "grunt-cli": "~0.1.11"
+    "grunt-cli": "~0.1.11",
+    "moniker": "~0.1.2",
+    "node-uuid": "~1.4.1",
+    "hat": "0.0.3"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.5",
@@ -56,5 +59,4 @@
     "test": "grunt test",
     "postinstall": "build echo postinstall time; ./node_modules/bower/bin/bower install; ./node_modules/grunt-cli/bin/grunt build"
   }
-
 }
