@@ -18,7 +18,7 @@ angular.module('blimpIO', [
         'blimpIO.blimps',
         'blimpIO.users'
     ])
-    .config(function ($urlRouterProvider, $stateProvider) {
+    .config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
 
         var isAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster', function ($q, $timeout, $http, $rootScope, $location, toaster) {
                 var deferred = $q.defer();
@@ -94,8 +94,8 @@ angular.module('blimpIO', [
                 templateUrl: 'modules/index/index-view.html'
             });
 
-    })
-    .run(function ($rootScope, $location, $http, socket, $state, $stateParams) {
+    }])
+    .run(['$rootScope', '$location', '$http', 'socket', '$state', '$stateParams', function ($rootScope, $location, $http, socket, $state, $stateParams) {
         // Inline Routing
         $rootScope.go = function (hash) {
             $location.path(hash);
@@ -127,4 +127,4 @@ angular.module('blimpIO', [
             'data:update:awesomeThings',
             'data:update:blimps',
             'data:update:users']);
-    });
+    }]);

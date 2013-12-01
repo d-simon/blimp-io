@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('blimpIO.index', [])
-    .controller('IndexCtrl', function ($scope, $state) {
-
-    });
+    .controller('IndexCtrl', ['$scope', function ($scope) {
+        // provide $scope
+    }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('blimpIO.users', [])
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index.users', {
                 url: '/users',
@@ -9,8 +9,8 @@ angular.module('blimpIO.users', [])
                 controller: 'UsersCtrl'
             })
             .state('index.users.add', {});
-    })
-    .controller('UsersCtrl', function ($scope, $rootScope, $http, $state, toaster) {
+    }])
+    .controller('UsersCtrl', ['$scope', '$rootScope', '$state', '$http', 'toaster', function ($scope, $rootScope, $state, $http, toaster) {
 
         $scope.newUser = {};
 
@@ -49,4 +49,4 @@ angular.module('blimpIO.users', [])
             $scope.getUsers();
         });
 
-    });
+    }]);

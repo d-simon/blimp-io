@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('blimpIO.login', [])
-    .controller('LoginCtrl', function ($scope, $location, $http) {
+    .controller('LoginCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
 
         $scope.userdata = {
             username: '',
@@ -18,4 +18,4 @@ angular.module('blimpIO.login', [])
                     }
                 });
         };
-    });
+    }]);

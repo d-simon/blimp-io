@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('blimpIO.blimps', [])
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index.blimps', {
                 url: '/blimps',
                 templateUrl: 'modules/blimps/blimps.html',
                 controller: 'BlimpsCtrl'
             });
-    })
-    .controller('BlimpsCtrl', function ($scope, $rootScope, $http, $state, toaster) {
+    }])
+    .controller('BlimpsCtrl', ['$scope', '$rootScope', '$http', '$state', 'toaster', function ($scope, $rootScope, $http, $state, toaster) {
 
         $scope.getBlimps = function () {
             $http.get('/api/blimps')
@@ -46,4 +46,4 @@ angular.module('blimpIO.blimps', [])
             $scope.getBlimps();
         });
 
-    });
+    }]);

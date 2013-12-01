@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('blimpIO.main', [])
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index.main', {
                 url: '/',
                 templateUrl: 'modules/main/main.html',
                 controller: 'MainCtrl'
             });
-    })
-    .controller('MainCtrl', function ($scope, $rootScope, $http, toaster) {
+    }])
+    .controller('MainCtrl', ['$scope', '$rootScope', '$http', 'toaster', function ($scope, $rootScope, $http, toaster) {
 
         $scope.getAwesomeThings = function () {
             $http.get('/api/awesomeThings')
@@ -44,4 +44,4 @@ angular.module('blimpIO.main', [])
             $scope.getAwesomeThings();
             toaster.pop('success', 'Update!', 'awesomeThings update!');
         });
-    });
+    }]);
