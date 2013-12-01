@@ -25,21 +25,23 @@
         <br>
         <table class="table">
         <thead>
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th></th>
-          </tr>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users | orderBy:'username' track by $index"  ng-class="{ 'text-bold': (user.username == current.user.username) }">
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td><span class="glyphicon glyphicon-trash pull-right clickable" ng-click="deleteUser(user._id)"></span></td>
-          </tr>
+            <tr ng-repeat="user in users | orderBy:'username' track by $index"
+              ng-class="{ 'text-bold': (user.username == current.user.username) }">
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <span class="glyphicon glyphicon-trash pull-right clickable" ng-click="deleteUser(user._id)"></span>
+                </td>
+            </tr>
         </tbody>
-      </table>
-      <br>
+        </table>
+        <br>
     </div>
-
 </div>
