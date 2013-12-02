@@ -5,15 +5,17 @@
 </div>
 
 <div class="row marketing">
-    <div ng-repeat="thing in awesomeThings track by $index">
-        <h4>{{thing.name}} ( {{thing._id}} )
-            <a ng-click="deleteAwesomeThing(thing._id)" class="btn btn-large btn-default btn-error pull-right ">
-                <i class="glyphicon glyphicon-trash"></i>
-            </a>
-        </h4>
-      <p>{{thing.info}}</p>
-    </div>
-    <div ng-if="!awesomeThings || awesomeThings.length == 0">
-        <i>Nothing to show. Press Repopulate!</i>
+    <div class="col-lg-12">
+        <div ng-repeat="thing in awesomeThings track by $index">
+            <h4>{{thing.name}} ( {{thing._id}} )
+                <a ng-click="deleteAwesomeThing(thing._id)" class="btn btn-large btn-default btn-error pull-right ">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </h4>
+          <p>{{thing.info}}</p>
+        </div>
+        <div ng-if="!awesomeThings || awesomeThings.length == 0">
+            <i>Nothing to show. Press Repopulate!</i>
+        </div>
     </div>
 </div>

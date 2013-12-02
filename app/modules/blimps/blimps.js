@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('blimpIO.blimps', [])
+angular.module('blimpIO.blimps', ['blimpIO.blimp.dashboard'])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index.blimps', {
@@ -23,7 +23,7 @@ angular.module('blimpIO.blimps', [])
                 $http.post('/api/blimps')
                     .success(function () {
                         // Currently we don't need this, since we are
-                        // emiting to the own socket too (use broadcast instead)
+                        // emiting to our own socket too (use broadcast instead)
                         // $scope.getBlimps();
                         $state.go('index.blimps');
                         $scope.newBlimp = {};
@@ -32,13 +32,13 @@ angular.module('blimpIO.blimps', [])
             };
 
             $scope.deleteBlimp = function (id) {
-                $http.delete('/api/blimps/'+id)
-                    .success(function () {
-                        var spliceIndex = _.findIndex($scope.blimps, { '_id': id });
-                        if (spliceIndex > -1) {
-                            $scope.blimps.splice(spliceIndex, 1);
-                        }
-                    });
+                var index = _.findIndex($scope.blimps, { '_id': id });
+                if (index > -1 && confirm("Do you really want to delete '" + $scope.blimps[index].name + "'?")) {
+                    $http.delete('/api/blimps/'+id)
+                        .success(function () {
+                            $scope.blimps.splice(index, 1);
+                        });
+                }
             };
 
             $scope.getBlimps();

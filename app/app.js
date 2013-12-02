@@ -5,6 +5,8 @@ angular.module('blimpIO', [
         'ngSanitize',
         'ngAnimate',
 
+        'restangular',
+
         'ui.router',
 
         'btford.socket-io',
@@ -135,6 +137,7 @@ angular.module('blimpIO', [
             socket.forward([
                 'data:update:awesomeThings',
                 'data:update:blimps',
+                'data:update:reports',
                 'data:update:users']);
         }
     ]);

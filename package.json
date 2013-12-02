@@ -34,7 +34,8 @@
     "grunt-cli": "~0.1.11",
     "moniker": "~0.1.2",
     "node-uuid": "~1.4.1",
-    "hat": "0.0.3"
+    "hat": "0.0.3",
+    "express-useragent": "0.0.8-1"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.5",

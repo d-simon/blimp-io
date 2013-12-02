@@ -37,13 +37,13 @@ angular.module('blimpIO.users', [])
             };
 
             $scope.deleteUser = function (id) {
-                $http.delete('/api/users/'+id)
-                    .success(function () {
-                        var spliceIndex = _.findIndex($scope.users, { '_id': id });
-                        if (spliceIndex > -1) {
-                            $scope.users.splice(spliceIndex, 1);
-                        }
-                    });
+                var index = _.findIndex($scope.users, { '_id': id });
+                if (index > -1 && confirm("Do you really want to delete '" + $scope.users[index].username + "'?")) {
+                    $http.delete('/api/users/'+id)
+                        .success(function () {
+                            $scope.users.splice(index, 1);
+                        });
+                }
             };
 
             $scope.getUsers();
