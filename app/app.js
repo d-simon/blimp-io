@@ -14,6 +14,8 @@ angular.module('blimpIO', [
 
         'toaster',
 
+        'hljs',
+
         'blimpIO.index',
         'blimpIO.login',
         'blimpIO.main',
