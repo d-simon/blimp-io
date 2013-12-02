@@ -6,6 +6,9 @@ before_script:
 - bower install
 services:
 - mongodb
+branches:
+  only:
+    - master
 deploy:
   provider: heroku
   api_key:
