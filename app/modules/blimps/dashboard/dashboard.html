@@ -28,7 +28,8 @@
         <div ng-repeat="report in reports | orderBy:'-timestamp' track by $index">
             <b>{{ report.timestamp * 1000 | date:'HH:mm:ss / dd.MM.yyyy ' }}</b> - {{ report.ips || report.ip }} @ {{ report.host }} - {{ }}
             <br>
-            <div hljs source="reports[$index].json | json"></div>
+            <div hljs source="report.json | json"></div>
+            </pre>
         </div>
     </div>
 </div>
