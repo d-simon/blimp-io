@@ -1,6 +1,6 @@
 # _blimp-io_
 
-blimp-io will manage one or multiple blimps - so far it is only a raw skeleton.
+blimp-io can manage one or multiple blimps. So far it only accepts JSON data, which it logs to the corresponding API-Key
 
 Based on **Node.js**, **Express.js**, **Mongoose.js** (MongoDB), **Socket.io**, **Passport.js** (+Bcrypt) and **Angular.js**
 
@@ -17,7 +17,8 @@ Generated with [angular-fullstack][1]
 
 ###How do I make use of the generators for angular components?
 
- - Please refer to the [angular-fullstack generator documentation][4]
+You don't. The application has an entirely different structure now. The modules should provide enough of a template.
+ ~~Please refer to the [angular-fullstack generator documentation][4]~~~
 
 ###What's the default user login?
 
@@ -25,21 +26,21 @@ Username: **blimp**
 
 Password: **blimp**
 
-This user will automatically be created at server start. Disable it in the **_server.js_** at the bottom.
-
-###How do I add more users?
-
-Currently only manually, or by extending the initialisation part in the **_server.js_** at the bottom.
+This user will automatically be created at server start if the user collection is empty.
 
 ## Server & Deployment
 
-###Generate deployment build
+###What's the current deploy workflow?
+
+GitHub commit hook -> [Travis-CI][5] -> Heroku (Autodeploy)
+
+###Generate a seperate deployment build
 
 Easy.
 
     grunt heroku 
 
-###Service & Autostart
+###Alternatively: Service & Autostart
 
 A service script is provided together with blimp-io; ~~it assumes the usage of hotnode~~
 
@@ -56,8 +57,8 @@ Use it to start blimb-io
 
 
 
-### Redirection with _nginx_
-[Proxying WebSockets with nginx][5]
+###Redirection with _nginx_
+[Proxying WebSockets with nginx][6]
 
     location ~^/ {
         proxy_pass http://localhost:9007;
@@ -67,7 +68,7 @@ Use it to start blimb-io
         proxy_set_header Host $host;
     }
 
-
+    
 
 
   [1]: https://github.com/DaftMonk/generator-angular-fullstack
@@ -75,3 +76,4 @@ Use it to start blimb-io
   [3]: http://yeoman.io/
   [4]: https://github.com/DaftMonk/generator-angular-fullstack#generators
   [5]: https://chrislea.com/2013/02/23/proxying-websockets-with-nginx/ 
+  [6]: https://travis-ci.org/d-simon/blimp-io
