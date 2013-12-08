@@ -8,8 +8,11 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     mongoose = require('mongoose'),
+    MongoStore = require('connect-mongo-store')(express),
     async = require('async'),
     passport = require('passport'),
+    passportSocketIo = require("passport.socketio"),
+    socketio = require('socket.io'),
     http = require('http'),
     useragent = require('express-useragent');
 
@@ -25,7 +28,7 @@ var app = express(),
 var db = require('./lib/db/mongo');
 
 // Setup Socket.io
-var io = require('socket.io').listen(server);
+var io = socketio.listen(server);
 
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -71,6 +74,61 @@ passport.use(new LocalStrategy({passReqToCallback: true},function(req, username,
 
 
 /* ---------------------------------------------------------------------------------------------- */
+// MongoStore Session Storage Configuration
+/* ---------------------------------------------------------------------------------------------- */
+var uristring =
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/blimp-io';
+
+var mongoOptions = { db: { safe: true } };
+
+var mongoStore = new MongoStore(uristring, mongoOptions);
+
+mongoStore.on('connect', function() {
+    console.log('mongoStore is ready to use')
+})
+
+mongoStore.on('error', function(err) {
+    console.log('mongoStore Error: ', err)
+})
+
+
+/* ---------------------------------------------------------------------------------------------- */
+// SocketIO Configuration
+/* ---------------------------------------------------------------------------------------------- */
+
+io.configure(function () {
+    io.set('authorization', passportSocketIo.authorize({
+      cookieParser: express.cookieParser,
+      key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
+      secret:      'vI0GO63jD4%IjP0tagBeW4&5pTOqQo!x',    // the session_secret to parse the cookie
+      store:       mongoStore,        // we NEED to use a sessionstore. no memorystore please
+      success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
+      fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+    }));
+});
+
+function onAuthorizeSuccess(data, accept){
+    console.log('successful connection to socket.io');
+
+    // The accept-callback still allows us to decide whether to
+    // accept the connection or not.
+    accept(null, true);
+}
+
+function onAuthorizeFail(data, message, error, accept){
+    /*if(error) {
+        throw new Error(message);
+    }*/
+    console.log('failed connection to socket.io:', message);
+
+    // We use this callback to log all of our failed connections.
+    accept(null, true);
+}
+
+
+/* ---------------------------------------------------------------------------------------------- */
 // Express Configuration
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -81,7 +139,7 @@ app.configure(function(){
     app.use(express.compress());
     app.use(express.cookieParser());
     app.use(express.bodyParser());
-    app.use(express.session({ secret: 'vI0GO63jD4%IjP0tagBeW4&5pTOqQo!x' }));
+    app.use(express.session({ store: mongoStore, secret: 'vI0GO63jD4%IjP0tagBeW4&5pTOqQo!x' }))
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(app.router);
@@ -153,8 +211,10 @@ app.post('/api/login', function(req, res) {
 });
 
 app.post('/api/logout', function(req, res){
-    req.logOut();
-    res.send(200);
+    req.session.destroy(function (err) {
+        res.send(200);
+    });
+    
 });
 
 var auth = function (req, res, next) {
@@ -170,9 +230,9 @@ var auth = function (req, res, next) {
 
 var api = {
         awesomethings:     require('./lib/controllers/awesomethings')(mongoose, async, io),
-        blimps:            require('./lib/controllers/blimps')(mongoose, async, io),
-        blimpreports:      require('./lib/controllers/blimpreports')(mongoose, async, io),
-        users:             require('./lib/controllers/users')(mongoose, async, io)
+        blimps:            require('./lib/controllers/blimps')(mongoose, async, io, passportSocketIo),
+        blimpreports:      require('./lib/controllers/blimpreports')(mongoose, async, io, passportSocketIo),
+        users:             require('./lib/controllers/users')(mongoose, async, io, passportSocketIo)
     };
 
 /* ---------------------------------------------------------------------------------------------- */

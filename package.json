@@ -35,7 +35,9 @@
     "moniker": "~0.1.2",
     "node-uuid": "~1.4.1",
     "hat": "0.0.3",
-    "express-useragent": "0.0.8-1"
+    "express-useragent": "0.0.8-1",
+    "passport.socketio": "~2.2.0",
+    "connect-mongo-store": "~0.1.6"
   },
   "devDependencies": {
     "grunt-express-server": "~0.4.5",
