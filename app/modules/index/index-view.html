@@ -1,18 +1,33 @@
 <div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li ui-sref="index.dashboard" ng-class="{ active: $state.includes('index.dashboard') }"><a>Dashboard</a></li>
-    <li ui-sref="index.blimps" ng-class="{ active: $state.includes('index.blimps') }"><a>Blimps</a></li>
-    <!--<li><a>Settings</a></li>-->
-    <li ui-sref="index.users" ng-class="{ active: $state.includes('index.users') }"><a>Users</a></li>
-    <li><a ng-click="go('/logout')">Logout</a></li>
-  </ul>
-  <div class="logo side main">
-  </div>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <div class="logo side main"></div>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ui-sref="index.dashboard" ng-class="{ active: $state.includes('index.dashboard') }"><a>Dashboard</a></li>
+                <li ui-sref="index.blimps" ng-class="{ active: $state.includes('index.blimps') }"><a>Blimps</a></li>
+                <li><a>Settings</a></li>
+                <li ui-sref="index.users" ng-class="{ active: $state.includes('index.users') }"><a>Users</a></li>
+                <li><a ng-click="go('/logout')">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 <ui-view>
 </ui-view>
 
 <div class="footer">
-  <p><a href="http://davidsimon.ch" class="text-muted">DS</a> | <a href="https://github.com/d-simon/blimp-io" class="text-muted">On GitHub</a></p>
+    <p><a href="https://github.com/d-simon/blimp-io" class="text-muted"><i>blimp-io</i> on GitHub</a>
+    </p>
 </div>
