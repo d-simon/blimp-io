@@ -18,7 +18,7 @@ angular.module('blimpIO', [
 
         'blimpIO.index',
         'blimpIO.login',
-        'blimpIO.main',
+        'blimpIO.dashboard',
         'blimpIO.blimps',
         'blimpIO.users'
     ])

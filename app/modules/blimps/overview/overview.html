@@ -1,25 +1,32 @@
 <div class="row marketing">
-    <div class="col-lg-12">
-        <h1 ><a ui-sref="index.blimps" class="text-decor-none">Blimps</a> / {{ blimp.name }}</h1>
+    <div class="col-sm-12">
+        <h1><a ui-sref="index.blimps" class="text-decor-none">Blimps</a> / {{ blimp.name }}</h1>
         <br>
-       
+
     </div>
 </div>
 <div class="row marketing">
-    <div class="col-lg-6">
-        <label for="blimpApiKey"><b> API Key</b></label><br>
+    <div class="col-sm-6">
+        <label for="blimpApiKey"><b> API Key</b>
+        </label>
+        <br>
         <input type="text" name="blimpApiKey" class="form-control" value="{{ blimp.apikey }}">
     </div>
-    <div class="col-lg-6">
-        <label for="o"><b>Operations</b></label><br>
+    <div class="col-sm-6">
+        <label for="o"><b>Operations</b>
+        </label>
+        <br>
         <button class="btn btn-grey">
-            <strike>Regenerate Key</strike> <span class="glyphicon glyphicon-refresh clickable"></span>
+            <strike>Regenerate Key</strike>
+            <span class="glyphicon glyphicon-refresh clickable"></span>
         </button>
 
-         <button class="btn btn-grey" ng-click="deleteBlimp(blimp._id)">
-            Delete Blimp <span class="glyphicon glyphicon-trash clickable"></span>
+        <button class="btn btn-grey" ng-click="deleteBlimp(blimp._id)">
+            Delete Blimp
+            <span class="glyphicon glyphicon-trash clickable"></span>
         </button>
-        <br><br>
+        <br>
+        <br>
     </div>
 </div>
 <div class="row marketing">
@@ -29,7 +36,7 @@
             <b>{{ report.timestamp * 1000 | date:'HH:mm:ss / dd.MM.yyyy ' }}</b> - {{ report.ips || report.ip }} @ {{ report.host }} - {{ }}
             <br>
             <div hljs source="report.json | json"></div>
-            </pre>
         </div>
     </div>
 </div>
+

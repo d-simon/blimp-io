@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('blimpIO.blimp.dashboard', [])
+angular.module('blimpIO.blimp.overview', [])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('index.blimp-dashboard', {
+            .state('index.blimp-overview', {
                 url: '/blimps/:blimpName',
-                templateUrl: 'modules/blimps/dashboard/dashboard.html',
-                controller: 'BlimpsDashboardCtrl'
+                templateUrl: 'modules/blimps/overview/overview.html',
+                controller: 'BlimpsOverviewCtrl'
             });
     }])
-    .controller('BlimpsDashboardCtrl', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'toaster',
+    .controller('BlimpsOverviewCtrl', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'toaster',
         function ($scope, $rootScope, $http, $state, $stateParams, toaster) {
 
             $scope.getBlimp = function () {

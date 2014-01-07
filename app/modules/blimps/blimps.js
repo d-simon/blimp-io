@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('blimpIO.blimps', ['blimpIO.blimp.dashboard'])
+angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index.blimps', {

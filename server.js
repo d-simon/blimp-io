@@ -229,7 +229,6 @@ var auth = function (req, res, next) {
 /* ---------------------------------------------------------------------------------------------- */
 
 var api = {
-        awesomethings:     require('./lib/controllers/awesomethings')(mongoose, async, io),
         blimps:            require('./lib/controllers/blimps')(mongoose, async, io, passportSocketIo),
         blimpreports:      require('./lib/controllers/blimpreports')(mongoose, async, io, passportSocketIo),
         users:             require('./lib/controllers/users')(mongoose, async, io, passportSocketIo)
@@ -238,12 +237,7 @@ var api = {
 /* ---------------------------------------------------------------------------------------------- */
 // Routes
 /* ---------------------------------------------------------------------------------------------- */
-
-app.get(        '/api/repopulate',                          auth, api.awesomethings.repopulate);
-
-app.get(        '/api/awesomeThings',                       auth, api.awesomethings.findAll);
-app.delete(     '/api/awesomeThings/:id',                   auth, api.awesomethings.deleteById);
-                                                    
+                    
 app.get(        '/api/blimps',                              auth, api.blimps.findAll);
 app.get(        '/api/blimps/:bid',                         auth, api.blimps.findById);
 app.get(        '/api/blimps/:bname/byName',                auth, api.blimps.findByName);

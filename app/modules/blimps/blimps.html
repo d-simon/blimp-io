@@ -1,5 +1,5 @@
 <div class="row marketing" >
-    <div class="col-lg-12">
+    <div class="col-sm-12">
         <h1>Blimps</h1>
         <br>
         <button type="button" ng-click="createBlimp()" class="btn btn-grey">
@@ -9,17 +9,17 @@
     </div>
 </div>
 <div class="row marketing">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
         <i ng-if="!blimps">No Blimps yet.</i>
         <div class="row">
-            <div class="col-lg-6 blimp-container" ng-repeat="blimp in blimps | orderBy:'name' track by $index">
+            <div class="col-sm-6 blimp-container" ng-repeat="blimp in blimps | orderBy:'name' track by $index">
                 <h2 >{{ blimp.name }}</h2>
                 
                 <label for="blimpApiKey_{{ blimp.name }}"><b> API Key</b></label>
                 <input type="text" name="blimpApiKey_{{ blimp.name }}" class="form-control" value="{{ blimp.apikey }}">
                 <br>
-                <button class="btn btn-grey" ui-sref='index.blimp-dashboard({ blimpName: blimp.name })'>
-                    Dashboard <span class="glyphicon glyphicon-dashboard clickable"></span>
+                <button class="btn btn-grey" ui-sref='index.blimp-overview({ blimpName: blimp.name })'>
+                    Overview <span class="glyphicon glyphicon-dashboard clickable"></span>
                 </button>
                 <button class="btn btn-grey" ng-click="deleteBlimp(blimp._id)">
                     Delete <span class="glyphicon glyphicon-trash clickable"></span>
