@@ -26,7 +26,7 @@ Generated with [angular-fullstack][1]
 ###How do I make use of the generators for angular components?
 
 You don't. The application has an entirely different structure now. The modules should provide enough of a template.
- ~~Please refer to the [angular-fullstack generator documentation][4]~~~
+ ~~Please refer to the [angular-fullstack generator documentation][4]~~
 
 ###What's the default user login?
 
@@ -40,7 +40,7 @@ This user will automatically be created at server start if the user collection i
 
 ###What's the current deploy workflow?
 
-~~~GitHub commit hook -> [Travis-CI][5] -> Heroku (Autodeploy)~~
+~~GitHub commit hook -> [Travis-CI][5] -> Heroku (Autodeploy)~~
 
 Switched to [drone.io][8] / [VIEW BUILDS][9]
 
