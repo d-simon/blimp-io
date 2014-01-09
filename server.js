@@ -72,6 +72,18 @@ passport.use(new LocalStrategy({passReqToCallback: true},function(req, username,
 
 }));
 
+passportSocketIo.forEachAuthedSocket = function (callback) {
+    this
+        .filterSocketsByUser(io, function (user) {
+            return user.logged_in === true;
+        })
+        .forEach(function (socket) {
+            if (callback && typeof(callback) === 'function') {
+                callback(socket);
+                console.log(socket);
+            }
+        });
+};
 
 /* ---------------------------------------------------------------------------------------------- */
 // MongoStore Session Storage Configuration
