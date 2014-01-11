@@ -18,7 +18,7 @@
                 <label for="blimpApiKey_{{ blimp.name }}"><b> API Key</b></label>
                 <input type="text" name="blimpApiKey_{{ blimp.name }}" class="form-control" value="{{ blimp.apikey }}">
                 <br>
-                <button class="btn btn-grey" ui-sref='index.blimps.overview.reports({ blimpName: blimp.name })'>
+                <button class="btn btn-grey" ui-sref='index.blimps.overview.graph({ blimpName: blimp.name })'>
                     Overview <span class="glyphicon glyphicon-dashboard clickable"></span>
                 </button>
                 <button class="btn btn-grey" ng-click="deleteBlimp(blimp._id)">

@@ -24,7 +24,7 @@ angular.module('blimpIO.blimp.overview.graph', ['highcharts-ng'])
                 },
                 series: [],
                 title: {
-                    text: 'Hello'
+                    text: 'Temperature'
                 },
                 loading: false
             };
