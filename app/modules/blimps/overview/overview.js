@@ -8,7 +8,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                 templateUrl: 'modules/blimps/overview/overview.html',
                 controller: 'BlimpsOverviewCtrl',
                 resolve: {
-                    reports: function($stateParams, $q, $http) {
+                    reports: ['$stateParams', '$q', '$http', function($stateParams, $q, $http) {
                         var deferred = $q.defer();
                         $http.get('/api/blimps/' + $stateParams.blimpName +'/byName/reports')
                             .success(function (reports) {
@@ -18,8 +18,8 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                                 deferred.reject();
                             });
                         return deferred.promise;
-                    },
-                    blimp: function($stateParams, $q, $http) {
+                    }],
+                    blimp: ['$stateParams', '$q', '$http', function($stateParams, $q, $http) {
                         var deferred = $q.defer();
                         $http.get('/api/blimps/' + $stateParams.blimpName +'/byName')
                             .success(function (blimp) {
@@ -29,7 +29,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                                 deferred.reject();
                             });
                         return deferred.promise;
-                    }
+                    }]
                 }
             })
             .state('index.blimps.overview.reports', {
