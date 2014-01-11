@@ -93,7 +93,7 @@ angular.module('blimpIO', [
                 urls = {
                     login: '/login',
                     logout: '/logout',
-                    index: '/',
+                    index: '/dashboard',
                     api: {
                         authed: '/api/loggedin',
                         logout: '/api/logout'
