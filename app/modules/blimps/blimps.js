@@ -5,6 +5,11 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
         $stateProvider
             .state('index.blimps', {
                 url: '/blimps',
+                abstract: true,
+                template: '<ui-view />'
+            })
+            .state('index.blimps.list', {
+                url: '',
                 templateUrl: 'modules/blimps/blimps.html',
                 controller: 'BlimpsCtrl'
             });
@@ -25,7 +30,7 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
                         // Currently we don't need this, since we are
                         // emiting to our own socket too (use broadcast instead)
                         // $scope.getBlimps();
-                        $state.go('index.blimps');
+                        $state.go('index.blimps.list');
                         $scope.newBlimp = {};
                         return false;
                     });

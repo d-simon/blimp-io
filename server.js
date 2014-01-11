@@ -73,8 +73,8 @@ passport.use(new LocalStrategy({passReqToCallback: true},function(req, username,
 }));
 
 passportSocketIo.forEachAuthedSocket = function (callback) {
-    this
-        .filterSocketsByUser(io, function (user) {
+    
+    this.filterSocketsByUser(io, function (user) {
             return user.logged_in === true;
         })
         .forEach(function (socket) {
@@ -83,6 +83,7 @@ passportSocketIo.forEachAuthedSocket = function (callback) {
                 console.log(socket);
             }
         });
+        
 };
 
 /* ---------------------------------------------------------------------------------------------- */
