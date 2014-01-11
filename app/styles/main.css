@@ -26,7 +26,13 @@ a.text-decor-none, a:active.text-decor-none, a:hover.text-decor-none, a:visited.
 
 .btn.btn-grey {
     background:#eee;
+    color:#555;
+}
+.btn.btn-grey.active {
+    background-image: none;
+    background:#eee;
     color:#333;
+    outline: 0;
 }
 
 .logo {
