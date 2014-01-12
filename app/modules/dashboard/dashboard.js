@@ -6,7 +6,7 @@ angular.module('blimpIO.dashboard', [])
             $stateProvider
                 .state('index.dashboard', {
                     url: '/dashboard',
-                    templateUrl: 'modules/dashboard/dashboard.html',
+                    templateUrl: 'modules/dashboard/dashboard.tpl.html',
                     controller: 'DashboardCtrl'
                 });
         }

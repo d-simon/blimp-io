@@ -10,7 +10,7 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
             })
             .state('index.blimps.list', {
                 url: '',
-                templateUrl: 'modules/blimps/blimps.html',
+                templateUrl: 'modules/blimps/blimps.tpl.html',
                 controller: 'BlimpsCtrl'
             });
     }])

@@ -5,7 +5,7 @@ angular.module('blimpIO.blimp.overview.graph', ['highcharts-ng'])
         $stateProvider
             .state('index.blimps.overview.graph', {
                 url: '/graph',
-                templateUrl: 'modules/blimps/overview/graph/graph.html',
+                templateUrl: 'modules/blimps/overview/graph/graph.tpl.html',
                 controller: 'BlimpsOverviewGraphCtrl'
             });
     }])

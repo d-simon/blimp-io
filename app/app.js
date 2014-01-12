@@ -43,7 +43,7 @@ angular.module('blimpIO', [
 
                                     if (!returnPath && currentPath 
                                         && currentPath != '/'
-                                        && currentPath != '/main'
+                                        && currentPath != '/dashboard'
                                         && currentPath != '/login'
                                         && currentPath != '/logout') {
                                         // set new returnPath
@@ -107,7 +107,7 @@ angular.module('blimpIO', [
                 .state('login', {
                     url: urls.login,
                     resolve: { check: isAlreadyAuthed },
-                    templateUrl: 'modules/login/login.html',
+                    templateUrl: 'modules/login/login.tpl.html',
                     controller: 'LoginCtrl'
                 })
                 .state('logout', {
@@ -118,7 +118,7 @@ angular.module('blimpIO', [
                 .state('index', {
                     abstract: true,
                     resolve: { check: isAuthed },
-                    templateUrl: 'modules/index/index-view.html'
+                    templateUrl: 'modules/index/index-view.tpl.html'
                 });
 
         }

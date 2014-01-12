@@ -5,7 +5,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
         $stateProvider
             .state('index.blimps.overview', {
                 url: '/:blimpName',
-                templateUrl: 'modules/blimps/overview/overview.html',
+                templateUrl: 'modules/blimps/overview/overview.tpl.html',
                 controller: 'BlimpsOverviewCtrl',
                 resolve: {
                     reports: ['$stateParams', '$q', '$http', function($stateParams, $q, $http) {
@@ -34,7 +34,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
             })
             .state('index.blimps.overview.reports', {
                 url: '/reports',
-                templateUrl: 'modules/blimps/overview/reports.html'
+                templateUrl: 'modules/blimps/overview/reports.tpl.html'
             });
     }])
     .controller('BlimpsOverviewCtrl', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'toaster', 'reports', 'blimp',

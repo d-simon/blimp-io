@@ -6,7 +6,7 @@ angular.module('blimpIO.users', [])
             $stateProvider
                 .state('index.users', {
                     url: '/users',
-                    templateUrl: 'modules/users/users.html',
+                    templateUrl: 'modules/users/users.tpl.html',
                     controller: 'UsersCtrl'
                 })
                 .state('index.users.add', {});
