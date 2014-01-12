@@ -80,7 +80,6 @@ passportSocketIo.forEachAuthedSocket = function (callback) {
         .forEach(function (socket) {
             if (callback && typeof(callback) === 'function') {
                 callback(socket);
-                console.log(socket);
             }
         });
         
@@ -211,9 +210,7 @@ app.get('/api/loggedin', function(req, res) {
 });
 
 app.post('/api/login', function(req, res) {
-    console.log('before authenticate');
     passport.authenticate('local', function(err, user, info) {
-        console.log('authenticate callback');
         if (err) { return res.send({'status':'err','message':err.message}); }
         if (!user) { return res.send({'status':'fail','message':info.message}); }
         req.logIn(user, function(err) {
@@ -252,22 +249,19 @@ var api = {
 /* ---------------------------------------------------------------------------------------------- */
                     
 app.get(        '/api/blimps',                              auth, api.blimps.findAll);
-app.get(        '/api/blimps/:bid',                         auth, api.blimps.findById);
-app.get(        '/api/blimps/:bname/byName',                auth, api.blimps.findByName);
+app.get(        '/api/blimps/:bid',                         auth, api.blimps.find);
 app.post(       '/api/blimps',                              auth, api.blimps.createNew);
-app.put(        '/api/blimps/:bid',                         auth, api.blimps.updateById);
-app.delete(     '/api/blimps/:bid',                         auth, api.blimps.deleteById);
+app.put(        '/api/blimps/:bid',                         auth, api.blimps.update);
+app.delete(     '/api/blimps/:bid',                         auth, api.blimps.delete);
 
 
 app.post(       '/api/reports',                                   api.blimpreports.createNew);
 app.get(        '/api/reports',                             auth, api.blimpreports.findAll);
 app.get(        '/api/reports/:logid',                      auth, api.blimpreports.findById);
 
-app.get(        '/api/blimps/:bid/reports',                 auth, api.blimpreports.findByBlimpId);
-app.get(        '/api/blimps/:bname/byName/reports',        auth, api.blimpreports.findByBlimpName);
-app.get(        '/api/blimps/:bname/byName/reports/:rid',   auth, api.blimpreports.findById);
+app.get(        '/api/blimps/:bid/reports',                 auth, api.blimpreports.findByBlimp);
 app.get(        '/api/blimps/:bid/reports/:rid',            auth, api.blimpreports.findById);
-
+app.get(        '/api/blimps/:bid/reports/:rid',            auth, api.blimpreports.findById);
 
 
 app.get(        '/api/users',                               auth, api.users.findAll);
