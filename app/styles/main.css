@@ -34,6 +34,11 @@ a.text-decor-none, a:active.text-decor-none, a:hover.text-decor-none, a:visited.
     color:#333;
     outline: 0;
 }
+@media (max-width:767px) {
+    .btn {
+     margin-bottom:4px;
+    }
+}
 
 .logo {
   background: url(../img/logo.svg) 0 0 no-repeat;

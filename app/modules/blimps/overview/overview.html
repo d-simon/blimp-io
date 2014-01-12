@@ -11,6 +11,7 @@
         </label>
         <br>
         <input type="text" name="blimpApiKey" class="form-control" value="{{ blimp.apikey }}">
+        <br>
     </div>
     <div class="col-sm-6">
        
@@ -55,13 +56,9 @@
             Graph
             <span class="glyphicon glyphicon-stats clickable"></span>
         </button>
-        <button class="btn btn-grey" ng-class="{ active: $state.includes('index.blimps.overview.table') }" ui-sref="index.blimps.overview.reports({ blimpName: blimp.name })">
-            <strike>Table</strike>
-            <span class="glyphicon glyphicon-list-alt clickable"></span>
-        </button>
          <button class="btn btn-grey" ng-class="{ active: $state.includes('index.blimps.overview.reports') }" ui-sref="index.blimps.overview.reports({ blimpName: blimp.name })">
             Reports
-            <span class="glyphicon glyphicon-tasks clickable"></span>
+            <span class="glyphicon glyphicon-list-alt clickable"></span>
         </button>
         <br><br>
         <div ui-view></div>
