@@ -38,8 +38,8 @@ angular.module('blimpIO.services')
             return $http.delete(urlBase + '/' + id);
         };
 
-        factory.deleteBlimpByName = function (id) {
-            return $http.delete(urlBase + '/' + id + '?identifier=name');
+        factory.deleteBlimpByName = function (name) {
+            return $http.delete(urlBase + '/' + name + '?identifier=name');
         };
 
         return factory;

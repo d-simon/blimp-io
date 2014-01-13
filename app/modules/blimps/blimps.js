@@ -58,7 +58,7 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
                 var index = _.findIndex($scope.blimps, { '_id': id });
                 if (index > -1 && confirm('Do you really want to delete "' + $scope.blimps[index].name + '"?')) {
                     factoryBlimps
-                        .deleteBlimpByName(id)
+                        .deleteBlimp(id)
                         .success(function () {
                             $scope.blimps.splice(index, 1);
                         });
