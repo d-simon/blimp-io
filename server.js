@@ -240,7 +240,7 @@ var auth = function (req, res, next) {
 
 var api = {
         blimps:            require('./lib/controllers/blimps')(mongoose, async, io, passportSocketIo),
-        blimpreports:      require('./lib/controllers/blimpreports')(mongoose, async, io, passportSocketIo),
+        reports:           require('./lib/controllers/reports')(mongoose, async, io, passportSocketIo),
         users:             require('./lib/controllers/users')(mongoose, async, io, passportSocketIo)
     };
 
@@ -255,13 +255,10 @@ app.put(        '/api/blimps/:bid',                         auth, api.blimps.upd
 app.delete(     '/api/blimps/:bid',                         auth, api.blimps.delete);
 
 
-app.post(       '/api/reports',                                   api.blimpreports.createNew);
-app.get(        '/api/reports',                             auth, api.blimpreports.findAll);
-app.get(        '/api/reports/:logid',                      auth, api.blimpreports.findById);
-
-app.get(        '/api/blimps/:bid/reports',                 auth, api.blimpreports.findByBlimp);
-app.get(        '/api/blimps/:bid/reports/:rid',            auth, api.blimpreports.findById);
-app.get(        '/api/blimps/:bid/reports/:rid',            auth, api.blimpreports.findById);
+app.post(       '/api/reports',                                   api.reports.createNew);
+app.get(        '/api/reports',                             auth, api.reports.findAll);
+app.get(        '/api/reports/:logid',                      auth, api.reports.findById);
+app.get(        '/api/blimps/:bid/reports',                 auth, api.reports.findAllByBlimp);
 
 
 app.get(        '/api/users',                               auth, api.users.findAll);

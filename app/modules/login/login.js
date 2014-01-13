@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('blimpIO.login', [])
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$http',
-        function ($scope, $rootScope, $location, $http) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'factoryAuth',
+        function ($scope, $rootScope, $location, factoryAuth) {
 
             $scope.userdata = {
                 username: '',
@@ -11,7 +11,8 @@ angular.module('blimpIO.login', [])
             };
             
             $scope.login = function () {
-                $http.post('/api/login', $scope.userdata)
+                factoryAuth
+                    .logIn($scope.userdata)
                     .success(function (response) {
                         console.log(response);
                         if (response !== '0') {

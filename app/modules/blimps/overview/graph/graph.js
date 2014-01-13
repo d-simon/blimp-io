@@ -9,8 +9,8 @@ angular.module('blimpIO.blimp.overview.graph', ['highcharts-ng'])
                 controller: 'BlimpsOverviewGraphCtrl'
             });
     }])
-    .controller('BlimpsOverviewGraphCtrl', ['$scope', '$rootScope', '$http', '$state', '$stateParams', '$filter', 'toaster',
-        function ($scope, $rootScope, $http, $state, $stateParams, $filter, toaster) {
+    .controller('BlimpsOverviewGraphCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'toaster',
+        function ($scope, $rootScope, $state, $stateParams, $filter, toaster) {
 
             $scope.chartConfig = {
                 options: {

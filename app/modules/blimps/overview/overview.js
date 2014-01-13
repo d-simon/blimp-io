@@ -8,9 +8,10 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                 templateUrl: 'modules/blimps/overview/overview.tpl.html',
                 controller: 'BlimpsOverviewCtrl',
                 resolve: {
-                    reports: ['$stateParams', '$q', '$http', function($stateParams, $q, $http) {
+                    resolvedReports: ['$stateParams', '$q', 'factoryReports', function ($stateParams, $q, factoryReports) {
                         var deferred = $q.defer();
-                        $http.get('/api/blimps/' + $stateParams.blimpName +'/reports?identifier=name')
+                        factoryReports
+                            .getReportsByBlimpName($stateParams.blimpName)
                             .success(function (reports) {
                                 deferred.resolve(reports);
                             })
@@ -19,9 +20,10 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                             });
                         return deferred.promise;
                     }],
-                    blimp: ['$stateParams', '$q', '$http', function($stateParams, $q, $http) {
+                    resolvedBlimp: ['$stateParams', '$q', 'factoryBlimps', function ($stateParams, $q, factoryBlimps) {
                         var deferred = $q.defer();
-                        $http.get('/api/blimps/' + $stateParams.blimpName +'?identifier=name')
+                        factoryBlimps
+                            .getBlimpByName($stateParams.blimpName)
                             .success(function (blimp) {
                                 deferred.resolve(blimp);
                             })
@@ -37,11 +39,17 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                 templateUrl: 'modules/blimps/overview/reports.tpl.html'
             });
     }])
-    .controller('BlimpsOverviewCtrl', ['$scope', '$rootScope', '$http', '$state', '$stateParams', 'toaster', 'reports', 'blimp',
-        function ($scope, $rootScope, $http, $state, $stateParams, toaster, reports, blimp) {
+    .controller('BlimpsOverviewCtrl', [
+        '$scope', '$rootScope', '$state', '$stateParams', 'toaster', 'factoryBlimps', 'factoryReports', 'resolvedReports', 'resolvedBlimp', 
+        function ($scope, $rootScope, $state, $stateParams, toaster, factoryBlimps, factoryReports, resolvedReports, resolvedBlimp) {
+
+            $scope.reports = resolvedReports;
+            $scope.blimp = resolvedBlimp;
 
             $scope.getBlimp = function () {
                 $http.get('/api/blimps/' + $stateParams.blimpName +'?identifier=name')
+                factoryBlimps
+                    .getBlimpByName()
                     .success(function (blimp) {
                         $scope.blimp = blimp;
                         $scope.$broadcast('angular:data:update:blimp');
@@ -51,9 +59,11 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                     });
             };
 
-           $scope.deleteBlimp = function (id) {
+           $scope.deleteBlimp = function (name) {
                 if (confirm("Do you really want to delete '" + $scope.blimp.name + "'?")) {
                     $http.delete('/api/blimps/'+id)
+                    factoryBlimps
+                        .deleteBlimpByName()
                         .success(function () {
                             $state.go('index.blimps.list');
                             $scope.$broadcast('angular:data:update:blimp');
@@ -62,21 +72,20 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
             };
 
             $scope.getReports = function () {
-                $http.get('/api/blimps/' + $stateParams.blimpName +'/reports?identifier=name')
+                factoryReports
+                    .getReportsByBlimpByName($stateParams.blimpName)
                     .success(function (reports) {
                         $scope.reports = reports;
                         $scope.$broadcast('angular:data:update:reports');
                     });
             };
 
-            $scope.reports = reports;
-            $scope.blimp = blimp;
-
             $scope.rename = {
                 storeName: $scope.blimp.name,
                 save: function () {
                     $scope.listenToSocketUpdates = false;
-                    $http.put('/api/blimps/' + $scope.rename.storeName + '?identifier=name', $scope.blimp)
+                    factoryBlimps
+                        .updateBlimp($scope.blimp)
                         .success(function (blimp) {
                             $scope.rename.storeName = $scope.blimp.name;
                             $state.go($state.current.name, { blimpName: $scope.blimp.name });

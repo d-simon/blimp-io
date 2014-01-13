@@ -11,21 +11,39 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
             .state('index.blimps.list', {
                 url: '',
                 templateUrl: 'modules/blimps/blimps.tpl.html',
-                controller: 'BlimpsCtrl'
+                controller: 'BlimpsCtrl',
+                resolve: {
+                    resolvedBlimps: ['$q', 'factoryBlimps', function ($q, factoryBlimps) {
+                        var deferred = $q.defer();
+                        factoryBlimps
+                            .getBlimps()
+                            .success(function (blimp) {
+                                deferred.resolve(blimp);
+                            })
+                            .error(function (error) {
+                                deferred.reject();
+                            });
+                        return deferred.promise;
+                    }]
+                }
             });
     }])
-    .controller('BlimpsCtrl', ['$scope', '$rootScope', '$http', '$state', 'toaster',
-        function ($scope, $rootScope, $http, $state, toaster) {
+    .controller('BlimpsCtrl', ['$scope', '$rootScope', '$state', 'toaster', 'factoryBlimps', 'resolvedBlimps',
+        function ($scope, $rootScope, $state, toaster, factoryBlimps, resolvedBlimps) {
+
+            $scope.blimps = resolvedBlimps;
 
             $scope.getBlimps = function () {
-                $http.get('/api/blimps')
+                factoryBlimps
+                    .getBlimps()
                     .success(function (blimps) {
                         $scope.blimps = blimps;
                     });
             };
 
             $scope.createBlimp = function () {
-                $http.post('/api/blimps')
+                factoryBlimps
+                    .createBlimp()
                     .success(function () {
                         // Currently we don't need this, since we are
                         // emiting to our own socket too (use broadcast instead)
@@ -39,14 +57,13 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
             $scope.deleteBlimp = function (id) {
                 var index = _.findIndex($scope.blimps, { '_id': id });
                 if (index > -1 && confirm("Do you really want to delete '" + $scope.blimps[index].name + "'?")) {
-                    $http.delete('/api/blimps/'+id)
+                    factoryBlimps
+                        .deleteBlimpByName(id)
                         .success(function () {
                             $scope.blimps.splice(index, 1);
                         });
                 }
             };
-
-            $scope.getBlimps();
 
             $scope.$on('socket:data:update:blimps', function () {
                 $scope.getBlimps();

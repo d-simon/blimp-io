@@ -20,77 +20,13 @@ angular.module('blimpIO', [
         'blimpIO.login',
         'blimpIO.dashboard',
         'blimpIO.blimps',
-        'blimpIO.users'
+        'blimpIO.users',
+        'blimpIO.services'
     ])
     .config(['$urlRouterProvider', '$stateProvider',
         function ($urlRouterProvider, $stateProvider) {
 
-            var isAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster',
-                    function ($q, $timeout, $http, $rootScope, $location, toaster) {
-                        var deferred = $q.defer();
-                        $http.get(urls.api.authed)
-                            .success(function (user) {
-                                if (user !== errorResponse) {
-                                    
-                                    if (($location.search()).returnPath) {
-                                        $location.url(decodeURIComponent(($location.search()).returnPath));
-                                    }
-                                    $rootScope.current.user = user;
-                                    $timeout(deferred.resolve, 0);
-                                } else {
-                                    var currentPath = $location.path(),
-                                        returnPath = ($location.search()).returnPath;
-
-                                    if (!returnPath && currentPath 
-                                        && currentPath != '/'
-                                        && currentPath != '/dashboard'
-                                        && currentPath != '/login'
-                                        && currentPath != '/logout') {
-                                        // set new returnPath
-                                        $location.url(urls.login).search('returnPath', currentPath);
-                                    } else {
-                                        $location.url(urls.login)
-                                    }
-                                    $timeout(function () { deferred.reject(); }, 0);
-                                }
-                            });
-                        return deferred.promise;
-                    }
-                ],
-                isAlreadyAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster',
-                    function ($q, $timeout, $http, $rootScope, $location, toaster) {
-                        console.log($location.absUrl());
-                        var deferred = $q.defer();
-                        $http.get(urls.api.authed)
-                            .success(function (user) {
-                                if (user === errorResponse) {
-                                    $timeout(deferred.resolve, 0);
-                                } else {
-                                    toaster.pop('info', 'You\'re already logged in!');
-                                    $rootScope.current.user = user;
-                                    $timeout(function () { deferred.reject(); }, 0);
-                                    $location.url(urls.index);
-                                }
-                            });
-                        return deferred.promise;
-                    }
-                ],
-                doLogout = ['$q', '$timeout', '$http', '$location',
-                    function ($q, $timeout, $http, $location) {
-                        var deferred = $q.defer();
-                        $http.post(urls.api.logout)
-                            .success(function () {
-                                $timeout(deferred.resolve, 0);
-                                $location.url(urls.login);
-                            })
-                            .error(function () {
-                                $timeout(function () { deferred.reject(); }, 0);
-                            });
-                        return deferred.promise;
-                    }
-                ],
-                // Url & Response Config
-                urls = {
+            var urls = {
                     login: '/login',
                     logout: '/logout',
                     index: '/dashboard',
@@ -99,14 +35,63 @@ angular.module('blimpIO', [
                         logout: '/api/logout'
                     }
                 },
-                errorResponse = '0';
+                errorResponse = '0',
+                isAuthed = ['$q', '$timeout', '$http', '$rootScope', '$location', 'toaster', 'factoryAuth',
+                    function ($q, $timeout, $http, $rootScope, $location, toaster, factoryAuth) {
+                        var deferred = $q.defer();
+                        factoryAuth
+                            .getAuthed()
+                            .success(function (user) {
+                                var currentPath = $location.path(),
+                                    returnPath = ($location.search()).returnPath;
+                                if (user !== errorResponse) {
+                                    if (returnPath) {
+                                        $location.url(decodeURIComponent(($location.search()).returnPath));
+                                    } else if (currentPath == urls.login) {
+                                        $location.url(urls.index);
+                                    }
+                                    $rootScope.current.user = user;
+                                    $timeout(deferred.resolve,0);
+                                } else if (currentPath == urls.login) {
+                                    deferred.resolve();
+                                } else {
+                                    if (!returnPath && currentPath 
+                                        && currentPath != '/'
+                                        && currentPath != urls.login
+                                        && currentPath != urls.logout)
+                                    {
+                                        $location.url(urls.login).search('returnPath', currentPath);
+                                    } else {
+                                        $location.url(urls.login).search('returnPath', returnPath);
+                                    }
+                                    $timeout(deferred.reject,0);
+                                }
+                            });
+                        return deferred.promise;
+                    }
+                ],
+                doLogout = ['$q', '$timeout', '$http', '$location', 'factoryAuth',
+                    function ($q, $timeout, $http, $location, factoryAuth) {
+                        var deferred = $q.defer();
+                        factoryAuth
+                            .logOut()
+                            .success(function () {
+                                $timeout(deferred.resolve, 0);
+                                $location.url(urls.login);
+                            })
+                            .error(function () {
+                                $timeout(deferred.reject, 0);
+                            });
+                        return deferred.promise;
+                    }
+                ];
 
             $urlRouterProvider.otherwise(urls.index);
 
             $stateProvider
                 .state('login', {
                     url: urls.login,
-                    resolve: { check: isAlreadyAuthed },
+                    resolve: { check: isAuthed },
                     templateUrl: 'modules/login/login.tpl.html',
                     controller: 'LoginCtrl'
                 })
@@ -118,7 +103,7 @@ angular.module('blimpIO', [
                 .state('index', {
                     abstract: true,
                     resolve: { check: isAuthed },
-                    templateUrl: 'modules/index/index-view.tpl.html'
+                    templateUrl: 'modules/index/index.tpl.html'
                 });
 
         }
@@ -135,7 +120,13 @@ angular.module('blimpIO', [
             // Auth Interceptor
             $rootScope.$on('event:auth-loginRequired', function () { 
                 $rootScope.current.user = null;
-                $location.url("/login");
+                 var currentPath = $location.path(),
+                     returnPath = ($location.search()).returnPath;
+                if (returnPath) {
+                    $location.path('/login').search('returnPath', returnPath);
+                } else {
+                    $location.path('/login').search('returnPath', currentPath);
+                }
             });
 
             // State
