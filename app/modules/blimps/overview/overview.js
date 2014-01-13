@@ -48,7 +48,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
 
             $scope.getBlimp = function () {
                 factoryBlimps
-                    .getBlimpByName()
+                    .getBlimpByName($scope.blimp.name)
                     .success(function (blimp) {
                         $scope.blimp = blimp;
                         $scope.$broadcast('angular:data:update:blimp');
@@ -61,7 +61,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
             $scope.deleteBlimp = function () {
                 if (confirm('Do you really want to delete "' + $scope.blimp.name + '"?')) {
                     factoryBlimps
-                        .deleteBlimpByName()
+                        .deleteBlimpByName($scope.blimp.name)
                         .success(function () {
                             $state.go('index.blimps.list');
                             $scope.$broadcast('angular:data:update:blimp');
