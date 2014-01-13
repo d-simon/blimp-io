@@ -47,19 +47,18 @@ angular.module('blimpIO', [
                                 if (user !== errorResponse) {
                                     if (returnPath) {
                                         $location.url(decodeURIComponent(($location.search()).returnPath));
-                                    } else if (currentPath == urls.login) {
+                                    } else if (currentPath === urls.login) {
                                         $location.url(urls.index);
                                     }
                                     $rootScope.current.user = user;
                                     $timeout(deferred.resolve,0);
-                                } else if (currentPath == urls.login) {
+                                } else if (currentPath === urls.login) {
                                     deferred.resolve();
                                 } else {
-                                    if (!returnPath && currentPath 
-                                        && currentPath != '/'
-                                        && currentPath != urls.login
-                                        && currentPath != urls.logout)
-                                    {
+                                    if (!returnPath && currentPath &&
+                                        currentPath !== '/' &&
+                                        currentPath !== urls.login &&
+                                        currentPath !== urls.logout) {
                                         $location.url(urls.login).search('returnPath', currentPath);
                                     } else {
                                         $location.url(urls.login).search('returnPath', returnPath);
@@ -108,8 +107,8 @@ angular.module('blimpIO', [
 
         }
     ])
-    .run(['$rootScope', '$location', '$http', 'socket', '$state', '$stateParams', '$q', '$timeout',
-        function ($rootScope, $location, $http, socket, $state, $stateParams, $q, $timeout) {
+    .run(['$rootScope', '$location', '$http', 'socket', '$state', '$stateParams',
+        function ($rootScope, $location, $http, socket, $state, $stateParams) {
             // Inline Routing
             $rootScope.go = function (hash) {
                 $location.url(hash);
@@ -118,9 +117,9 @@ angular.module('blimpIO', [
             $rootScope.current = {};
 
             // Auth Interceptor
-            $rootScope.$on('event:auth-loginRequired', function () { 
+            $rootScope.$on('event:auth-loginRequired', function () {
                 $rootScope.current.user = null;
-                 var currentPath = $location.path(),
+                var currentPath = $location.path(),
                      returnPath = ($location.search()).returnPath;
                 if (returnPath) {
                     $location.path('/login').search('returnPath', returnPath);
@@ -133,11 +132,11 @@ angular.module('blimpIO', [
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeStart', function () {
                 //save location.search so we can add it back after transition is done
                 $rootScope.locationSearch = $location.search();
             });
-            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeSuccess', function () {
                 //restore all query string parameters back to $location.search
                 $location.search($rootScope.locationSearch);
             });
@@ -147,6 +146,8 @@ angular.module('blimpIO', [
                 'data:update:awesomeThings',
                 'data:update:blimps',
                 'data:update:reports',
-                'data:update:users']);
+                'data:update:users'
+            ]);
 
-    }]);
+        }
+    ]);

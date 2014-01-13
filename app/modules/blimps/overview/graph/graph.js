@@ -9,8 +9,8 @@ angular.module('blimpIO.blimp.overview.graph', ['highcharts-ng'])
                 controller: 'BlimpsOverviewGraphCtrl'
             });
     }])
-    .controller('BlimpsOverviewGraphCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'toaster',
-        function ($scope, $rootScope, $state, $stateParams, $filter, toaster) {
+    .controller('BlimpsOverviewGraphCtrl', ['$scope',
+        function ($scope) {
 
             $scope.chartConfig = {
                 options: {
@@ -38,11 +38,10 @@ angular.module('blimpIO.blimp.overview.graph', ['highcharts-ng'])
                     tempData.push([obj.timestamp*1000, parseFloat(obj.json.environment.temp)]);
                 });
                 $scope.chartConfig.series[0].data = tempData;
-                console.log(temperature)
             };
             $scope.setSeries();
 
-            $scope.$on('angular:data:update:reports', function (event, data) {
+            $scope.$on('angular:data:update:reports', function () {
                 $scope.setSeries();
             });
         }

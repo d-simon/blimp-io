@@ -16,7 +16,7 @@ angular.module('blimpIO.users', [])
                                 .success(function (users) {
                                     deferred.resolve(users);
                                 })
-                                .error(function (error) {
+                                .error(function () {
                                     deferred.reject();
                                 });
                             return deferred.promise;
@@ -56,7 +56,7 @@ angular.module('blimpIO.users', [])
 
             $scope.deleteUser = function (id) {
                 var index = _.findIndex($scope.users, { '_id': id });
-                if (index > -1 && confirm("Do you really want to delete '" + $scope.users[index].username + "'?")) {
+                if (index > -1 && confirm('Do you really want to delete "' + $scope.users[index].username + '"?')) {
                     factoryUsers
                         .deleteUser(id)
                         .success(function () {

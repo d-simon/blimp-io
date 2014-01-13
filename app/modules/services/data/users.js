@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('blimpIO.services')
     .factory('factoryUsers', ['$http', function ($http) {
 
@@ -9,7 +11,7 @@ angular.module('blimpIO.services')
         };
 
         factory.updateUser = function (user) {
-            return $http.put(urlBase + '/' + user.ID, user)
+            return $http.put(urlBase + '/' + user.ID, user);
         };
 
         factory.deleteUser = function (id) {

@@ -15,7 +15,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                             .success(function (reports) {
                                 deferred.resolve(reports);
                             })
-                            .error(function (error) {
+                            .error(function () {
                                 deferred.reject();
                             });
                         return deferred.promise;
@@ -27,7 +27,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                             .success(function (blimp) {
                                 deferred.resolve(blimp);
                             })
-                            .error(function (error) {
+                            .error(function () {
                                 deferred.reject();
                             });
                         return deferred.promise;
@@ -40,14 +40,13 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
             });
     }])
     .controller('BlimpsOverviewCtrl', [
-        '$scope', '$rootScope', '$state', '$stateParams', 'toaster', 'factoryBlimps', 'factoryReports', 'resolvedReports', 'resolvedBlimp', 
+        '$scope', '$rootScope', '$state', '$stateParams', 'toaster', 'factoryBlimps', 'factoryReports', 'resolvedReports', 'resolvedBlimp',
         function ($scope, $rootScope, $state, $stateParams, toaster, factoryBlimps, factoryReports, resolvedReports, resolvedBlimp) {
 
             $scope.reports = resolvedReports;
             $scope.blimp = resolvedBlimp;
 
             $scope.getBlimp = function () {
-                $http.get('/api/blimps/' + $stateParams.blimpName +'?identifier=name')
                 factoryBlimps
                     .getBlimpByName()
                     .success(function (blimp) {
@@ -59,9 +58,8 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                     });
             };
 
-           $scope.deleteBlimp = function (name) {
-                if (confirm("Do you really want to delete '" + $scope.blimp.name + "'?")) {
-                    $http.delete('/api/blimps/'+id)
+            $scope.deleteBlimp = function () {
+                if (confirm('Do you really want to delete "' + $scope.blimp.name + '"?')) {
                     factoryBlimps
                         .deleteBlimpByName()
                         .success(function () {
@@ -86,7 +84,7 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
                     $scope.listenToSocketUpdates = false;
                     factoryBlimps
                         .updateBlimp($scope.blimp)
-                        .success(function (blimp) {
+                        .success(function () {
                             $scope.rename.storeName = $scope.blimp.name;
                             $state.go($state.current.name, { blimpName: $scope.blimp.name });
                         })
@@ -110,10 +108,14 @@ angular.module('blimpIO.blimp.overview', ['blimpIO.blimp.overview.graph'])
             $scope.listenToSocketUpdates = true;
 
             $scope.$on('socket:data:update:blimps', function () {
-                if ($scope.listenToSocketUpdates) $scope.getBlimp();
+                if ($scope.listenToSocketUpdates) {
+                    $scope.getBlimp();
+                }
             });
             $scope.$on('socket:data:update:reports', function () {
-                if ($scope.listenToSocketUpdates) $scope.getReports();
+                if ($scope.listenToSocketUpdates) {
+                    $scope.getReports();
+                }
             });
         }
     ]);

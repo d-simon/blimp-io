@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('blimpIO.services')
     .factory('factoryAuth', ['$http', function ($http) {
 
@@ -12,7 +14,7 @@ angular.module('blimpIO.services')
             return $http.post(urlBase + '/login', credentials);
         };
 
-        factory.logOut = function (id) {
+        factory.logOut = function () {
             return $http.post(urlBase + '/logout');
         };
         

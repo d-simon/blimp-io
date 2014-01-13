@@ -20,7 +20,7 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
                             .success(function (blimp) {
                                 deferred.resolve(blimp);
                             })
-                            .error(function (error) {
+                            .error(function () {
                                 deferred.reject();
                             });
                         return deferred.promise;
@@ -56,7 +56,7 @@ angular.module('blimpIO.blimps', ['blimpIO.blimp.overview'])
 
             $scope.deleteBlimp = function (id) {
                 var index = _.findIndex($scope.blimps, { '_id': id });
-                if (index > -1 && confirm("Do you really want to delete '" + $scope.blimps[index].name + "'?")) {
+                if (index > -1 && confirm('Do you really want to delete "' + $scope.blimps[index].name + '"?')) {
                     factoryBlimps
                         .deleteBlimpByName(id)
                         .success(function () {

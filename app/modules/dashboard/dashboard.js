@@ -6,13 +6,7 @@ angular.module('blimpIO.dashboard', [])
             $stateProvider
                 .state('index.dashboard', {
                     url: '/dashboard',
-                    templateUrl: 'modules/dashboard/dashboard.tpl.html',
-                    controller: 'DashboardCtrl'
+                    templateUrl: 'modules/dashboard/dashboard.tpl.html'
                 });
-        }
-    ])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$http', 'toaster',
-        function ($scope, $rootScope, $http, toaster) {
-            
         }
     ]);

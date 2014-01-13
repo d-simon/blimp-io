@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('blimpIO.services')
     .factory('factoryReports', ['$http', function ($http) {
 

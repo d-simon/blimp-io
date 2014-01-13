@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('blimpIO.services')
     .factory('factoryBlimps', ['$http', function ($http) {
 
@@ -21,7 +23,7 @@ angular.module('blimpIO.services')
         };
 
         factory.updateBlimp = function (blimp) {
-            return $http.put(urlBase + '/' + blimp._id, blimp)
+            return $http.put(urlBase + '/' + blimp._id, blimp);
         };
         
         factory.updateBlimpByName = function (blimp, name) {
