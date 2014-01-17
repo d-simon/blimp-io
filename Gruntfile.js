@@ -39,14 +39,6 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.{coffee,js}'],
-                tasks: ['coffee:test', 'karma']
-            },
             express: {
                 files: [
                     '<%= yeoman.app %>/{,*//*}*.html',
@@ -59,7 +51,7 @@ module.exports = function(grunt) {
                 tasks: ['express:dev'],
                 options: {
                     livereload: true,
-                    nospawn: true //Without this option specified express won't be reloaded
+                    nospawn: true // Without this option specified express won't be reloaded
                 }
             },
             styles: {
@@ -115,35 +107,11 @@ module.exports = function(grunt) {
                 '<%= yeoman.app %>/app.js'
             ]
         },
-        coffee: {
-            options: {
-                sourceMap: true,
-                sourceRoot: ''
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
-            }
-        },
         // not used since Uglify task does concat,
         // but still available if needed
-        /*concat: {
-      dist: {}
-    },*/
+        // concat: {
+        //   dist: {}
+        // },
         rev: {
             dist: {
                 files: {
@@ -205,15 +173,15 @@ module.exports = function(grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
+                   /* removeCommentsFromCDATA: true,
+                    // https://github.com/yeoman/grunt-usemin/issues/44
+                    // collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    removeAttributeQuotes: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeOptionalTags: true*/
                 },
                 files: [{
                     expand: true,
@@ -248,24 +216,6 @@ module.exports = function(grunt) {
                     ]
                 }]
             },
-            heroku: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    dest: 'heroku',
-                    src: [
-                        '<%= yeoman.dist %>/**'
-                    ]
-                }, {
-                    expand: true,
-                    dest: 'heroku',
-                    src: [
-                        'package.json',
-                        'server.js',
-                        'lib/**/*'
-                    ]
-                }]
-            },
             styles: {
                 expand: true,
                 cwd: '<%= yeoman.app %>/styles',
@@ -281,27 +231,24 @@ module.exports = function(grunt) {
         },
         concurrent: {
             server: [
-                'coffee:dist',
                 'copy:styles'
             ],
             test: [
-                'coffee',
                 'copy:styles'
             ],
             dist: [
-                'coffee',
                 'copy:styles',
                 'copy:images',
                 'svgmin',
                 'htmlmin'
             ]
         },
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js',
-                singleRun: true
-            }
-        },
+        // karma: {
+        //     unit: {
+        //         configFile: 'karma.conf.js',
+        //         singleRun: true
+        //     }
+        // },
         cdnify: {
             dist: {
                 html: ['<%= yeoman.dist %>/*.html']
@@ -336,7 +283,6 @@ module.exports = function(grunt) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
         }
-
         grunt.task.run([
             'clean:server',
             'concurrent:server',
